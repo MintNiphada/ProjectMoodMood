@@ -6,7 +6,7 @@ settings:
 
 importers:
 
-  apps/moodmood:
+  apps/moodmood-project:
     dependencies:
       '@capacitor/app':
         specifier: 8.0.0

@@ -1,0 +1,7 @@
+{
+  "name": "moodmood-project",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
