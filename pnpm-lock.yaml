@@ -38,6 +38,9 @@ importers:
       '@types/react-router-dom':
         specifier: ^5.3.3
         version: 5.3.3
+      dayjs:
+        specifier: ^1.11.19
+        version: 1.11.19
       ionicons:
         specifier: ^7.4.0
         version: 7.4.0

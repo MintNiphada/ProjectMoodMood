@@ -1,0 +1,129 @@
+.todo-card {
+  background: #FFFDF5;
+}
+
+.todo-card ion-card-header,
+.todo-card ion-card-content,
+.todo-card ion-list {
+  background: #FFFDF5;
+}
+
+.todo-card ion-item {
+  --background: #FFFDF5;
+  --background-hover: #FFFDF5;
+  --background-activated: #FFFDF5;
+  --inner-border-width: 0;
+  --border-color: transparent;
+}
+
+.todo-card ion-item::part(native) {
+  background: #FFFDF5;
+}
+
+.todo-card ion-list::part(container) {
+  background: #FFFDF5;
+}
+
+.mood-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mood-header ion-label {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.mood-card {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+.mood-img {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 8px;
+}
+
+.mood-content {
+  display: flex;
+  justify-content: center;
+}
+
+.mood-button {
+  --background: #FAEAB1;
+  --color: #504D4D;
+  --border-radius: 999px;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: #504D4D;
+  --box-shadow: none;
+  font-weight: 600;
+  height: 42px;
+  width: 100%;
+}
+
+.info-row {
+  display: flex;
+  gap: 12px;
+}
+
+.streak-card,
+.weather-card {
+  flex: 1;
+  border-radius: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+.streak-card,
+.weather-card,
+.todo-card {
+  background: #FFFDF5;
+  border-radius: 16px;
+  border: 0.5px solid #504D4D;
+  box-shadow: none;
+}
+
+.streak-count {
+  margin-top: 6px;
+  font-size: 18px;
+  color: #a29a9a;
+}
+
+.weather-text {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #a29a9a;
+}
+
+
+.home-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px;  
+}
+
+.home-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-greeting {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.home-date {
+  font-size: 13px;
+  color: #888;
+}
+
+.home-right .icon {
+  font-size: 20px;
+  margin-left: 12px;
+}
+
