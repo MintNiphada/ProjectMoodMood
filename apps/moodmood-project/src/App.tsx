@@ -3,7 +3,7 @@ import { IonApp } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
 import Tabs from "./pages/Tabs";
-import AddMood from "./pages/Addmood";
+import AddMood from "./pages/AddMood";
 import Login from "./pages/Login";
 
 /* Ionic CSS */
