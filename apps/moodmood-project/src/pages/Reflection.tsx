@@ -11,7 +11,7 @@ const Reflection: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>อารมณ์ของฉัน</IonTitle>
+          <IonTitle>คำถามสะท้อนใจ</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
