@@ -1,3 +1,24 @@
+.circle-checkbox {
+  --size: 20px;
+  --border-radius: 50%;
+  --background: transparent !important;
+  --background-checked: transparent !important;
+  --border-color: #504D4D !important;
+  --border-color-checked: #504D4D !important;
+  --checkmark-color: #504D4D !important;
+  --color: #504D4D !important;
+}
+
+.circle-checkbox::part(container) {
+  background: transparent !important;
+  border: 1px solid #504D4D !important;
+  border-radius: 50% !important;
+}
+
+.circle-checkbox::part(mark) {
+  color: #504D4D !important;
+}
+
 .todo-card {
   background: #FFFDF5;
 }
@@ -127,3 +148,17 @@
   margin-left: 12px;
 }
 
+.todo-done {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+ion-checkbox {
+  --size: 20px;
+  --border-radius: 50%;
+  --border-color: #504D4D;
+  --background: transparent;
+  --background-checked: transparent;
+  --checkmark-color: #504D4D;
+  --border-color-checked: #504D4D;
+}
