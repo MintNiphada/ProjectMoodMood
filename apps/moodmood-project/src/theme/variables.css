@@ -18,7 +18,38 @@ ion-tab-bar ion-tab-button.tab-selected::part(native) {
   background: transparent;
 }
 
+/* ion-toolbar */
+/* ===== REMOVE IONIC HEADER SHADOW ===== */
 
+ion-header {
+  box-shadow: none !important;
+}
+
+ion-header::after {
+  display: none !important;
+}
+
+/* ===== TOOLBAR CLEAN ===== */
+
+ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+}
+
+ion-title {
+    text-align: center;
+    font-weight: 700;
+}
+
+ion-toolbar {
+  --background: #FAF8F1;
+  --border-width: 0;
+}
+
+ion-toolbar .toolbar-container {
+  padding: 0;
+  min-height: unset;
+}
 
 ion-content {
     --background: #FAF8F1;
@@ -32,5 +63,24 @@ ion-tab-bar {
     box-shadow: 1px -11px 25px -11px rgba(250, 248, 241, 0.75);
     -webkit-box-shadow: 1px -11px 25px -11px rgba(244, 237, 210, 0.75);
     -moz-box-shadow: 1px -11px 25px -11px rgba(250, 248, 241, 0.75);
+}
+
+/* fab */
+.floating-add-button {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid #504D4D;
+  background: #FAEAB1;
+  font-size: 36px;
+  box-shadow: 0 6px 14px rgba(124, 120, 120, 0.18);
 }
 

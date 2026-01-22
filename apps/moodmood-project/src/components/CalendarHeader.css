@@ -1,0 +1,39 @@
+.calendar-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.month-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #FAEAB1;
+  border: none;
+  border-radius: 14px;
+  padding: 4px 10px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.streak {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #656563;
+  font-weight: 600;
+}
+
+.view-toggle {
+  background: none;
+  border: none;
+  font-size: 18px;
+}

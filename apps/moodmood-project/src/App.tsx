@@ -25,7 +25,6 @@ const App: React.FC = () => (
       <Route path="/tabs" component={Tabs} />
 
       {/* default */}
-      <Redirect exact from="/" to="/tabs/duck" />
     </IonReactRouter>
   </IonApp>
 );
