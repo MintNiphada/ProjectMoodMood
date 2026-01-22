@@ -103,17 +103,19 @@ const Home: React.FC = () => {
             <IonList>
               {todos.map((todo) => (
                 <IonItem key={todo.id} className="todo-item">
-                  <IonCheckbox
+                 <IonCheckbox
+                    className="circle-checkbox"
                     slot="start"
                     checked={todo.done}
                     onIonChange={() =>
-                      setTodos(
-                        todos.map((t) =>
-                          t.id === todo.id ? { ...t, done: !t.done } : t
-                        )
-                      )
-                    }
-                  />
+                    setTodos(
+                    todos.map((t) =>
+                    t.id === todo.id ? { ...t, done: !t.done } : t
+                  )
+                )
+              }
+            />
+
                   <IonLabel className={todo.done ? "todo-done" : ""}>
                     {todo.text}
                   </IonLabel>
