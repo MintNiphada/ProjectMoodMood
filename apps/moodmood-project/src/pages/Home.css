@@ -72,6 +72,7 @@
 .mood-content {
   display: flex;
   justify-content: center;
+  padding: 0;
 }
 
 .mood-button {
@@ -161,4 +162,59 @@ ion-checkbox {
   --background-checked: transparent;
   --checkmark-color: #504D4D;
   --border-color-checked: #504D4D;
+}
+
+.weather-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.weather-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.weather-icon {
+  font-size: 42px;
+}
+
+.home-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.home-icon {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 20px;
+}
+
+.home-gear {
+  font-size: 22px;
+}
+
+.info-card-content {
+  text-align: center;
+}
+
+.streak-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.streak-icon {
+  font-size: 42px;
+}
+
+.streak-count {
+  font-size: 18px;
+  font-weight: 600;
 }

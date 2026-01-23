@@ -14,8 +14,10 @@ import {
   IonCheckbox,
   IonAlert,
 } from "@ionic/react";
-import { useState } from "react";
+import {useState} from "react";
 import "./Home.css";
+import {IonIcon} from "@ionic/react";
+import {flameOutline, cloudyOutline, sunnyOutline, settingsOutline} from "ionicons/icons";
 
 type Todo = {
   id: number;
@@ -56,10 +58,13 @@ const Home: React.FC = () => {
     <div className="home-date">{thaiDate}</div>
   </div>
 
-  <div className="home-right">
-    <span className="icon">🔥</span>
-    <span className="icon">⚙️</span>
+<div className="home-right">
+  <div className="home-icon">
+    <IonIcon icon={flameOutline} />
+    <span>10</span>
   </div>
+  <IonIcon icon={settingsOutline} className="home-gear" />
+</div>
 </div>
 
  
@@ -70,26 +75,38 @@ const Home: React.FC = () => {
         </IonCardHeader>
 
         <IonCardContent className="mood-content">
-          <IonButton expand="block" className="mood-button">+ บันทึกอารมณ์</IonButton>
+        <IonButton expand="block" routerLink="/add-mood" className="mood-button">+ บันทึกอารมณ์</IonButton>
         </IonCardContent>
+
       </IonCard>
 
-      <div className="info-row">
-        <IonCard className="streak-card">
-          <IonCardContent>
-            🔥 บันทึกต่อเนื่อง  
-          <div className="streak-count">3 วัน</div>
-          </IonCardContent>
-        </IonCard>
+<div className="info-row">
+<IonCard className="streak-card">
+  <IonCardContent className="info-card-content">
+    <div className="info-title">บันทึกต่อเนื่อง</div>
 
-        <IonCard className="weather-card">
-          <IonCardContent>
-            ☁️ อากาศวันนี้  
-          <div className="weather-text">แดดออก 32°C</div>
-          </IonCardContent>
-        </IonCard>
+    <div className="streak-row">
+      <IonIcon icon={flameOutline} className="streak-icon" />
+      <span className="streak-count">10</span>
+    </div>
+  </IonCardContent>
+</IonCard>
+
+
+<IonCard className="weather-card">
+  <IonCardContent className="info-card-content">
+    <div className="info-title">อากาศวันนี้</div>
+
+    <div className="weather-row">
+      <IonIcon icon={sunnyOutline} className="weather-icon" />
+      <div className="weather-text-group">
+        <div className="weather-temp">แดดออก</div>
+        <div className="weather-location">ขอนแก่น</div>
       </div>
-
+    </div>
+  </IonCardContent>
+</IonCard>
+</div>
 
         <IonCard className="todo-card">
           <IonCardHeader>
@@ -119,6 +136,12 @@ const Home: React.FC = () => {
                   <IonLabel className={todo.done ? "todo-done" : ""}>
                     {todo.text}
                   </IonLabel>
+                        <IonButton slot="end" fill="clear" 
+                          onClick={() =>
+                          setTodos(todos.filter((t) => t.id !== todo.id))
+                          }
+                          >x
+                        </IonButton>
                 </IonItem>
               ))}
             </IonList>

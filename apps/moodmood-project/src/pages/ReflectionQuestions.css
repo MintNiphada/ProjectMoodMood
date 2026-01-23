@@ -1,0 +1,53 @@
+.rq-page {
+  --background: #faf7f2;
+}
+
+.rq-header {
+  text-align: center;
+  padding: 20px 16px 12px;
+}
+
+.rq-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #f1ede6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 28px;
+  color: #555;
+}
+
+.rq-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.rq-header p {
+  margin: 6px 0 10px;
+  font-size: 14px;
+  color: #777;
+}
+
+.rq-list {
+  padding: 0 12px;
+}
+
+.rq-item {
+  margin-bottom: 10px;
+  border-radius: 14px;
+  --background: #fffdf8;
+  border: 1px solid #e0ddd7;
+}
+
+.history-btn::part(native) {
+  border-radius: 12px;
+  border: 1.2px solid #d0ccc6;
+  background: transparent;
+  color: #666;
+  box-shadow: none;
+}
+
