@@ -1,0 +1,46 @@
+.intro-container {
+  min-height: 100vh;
+  background: #fffdf6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+.intro-logo {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.intro-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #444;
+}
+
+.intro-subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 24px;
+}
+
+.btn {
+  width: 100%;
+  max-width: 320px;
+  padding: 14px;
+  border-radius: 999px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: #fde9a9;
+}
+
+.btn.secondary {
+  background: white;
+  border: 1px solid #ccc;
+}

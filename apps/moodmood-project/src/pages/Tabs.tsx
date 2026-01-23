@@ -22,6 +22,9 @@ import Calendar from "./Calendar";
 import Home from "./Home";
 import Insight from "./Insight";
 import Activity from "./Activity";
+import Login from "./Login";
+import Register from "./register";
+import Intro from "./into";
 
 const Tabs: React.FC = () => {
   return (
@@ -32,8 +35,11 @@ const Tabs: React.FC = () => {
         <Route exact path="/tabs/home" component={Home} />
         <Route exact path="/tabs/insight" component={Insight} />
         <Route exact path="/tabs/activity" component={Activity} />
+        <Route exact path="/tabs/login" component={Login} />
+        <Route exact path="/tabs/register" component={Register} />
+        <Route exact path="/tabs/intro" component={Intro} />
 
-        <Redirect exact from="/tabs" to="/tabs/home" />
+        <Redirect exact from="/tabs" to="/tabs/into" />
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom" mode = "ios">

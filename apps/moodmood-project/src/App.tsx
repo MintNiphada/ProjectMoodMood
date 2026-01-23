@@ -5,6 +5,8 @@ import { IonReactRouter } from "@ionic/react-router";
 import Tabs from "./pages/Tabs";
 import AddMood from "./pages/AddMood";
 import Login from "./pages/Login";
+import Register from "./pages/register";
+import Intro from "./pages/into";
 
 /* Ionic CSS */
 import "@ionic/react/css/core.css";
@@ -18,14 +20,16 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       {/* หน้าไม่มี Tabs */}
+      <Route path="/intro" component={Intro} exact />
       <Route path="/login" component={Login} exact />
+      <Route path="/register" component={Register} exact />
       <Route path="/add-mood" component={AddMood} exact />
 
       {/* หน้าที่มี Tabs */}
       <Route path="/tabs" component={Tabs} />
 
       {/* default */}
-      <Redirect exact from="/" to="/tabs/home" />
+      <Redirect exact from="/" to="/intro" />
     </IonReactRouter>
   </IonApp>
 );
