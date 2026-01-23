@@ -1,0 +1,48 @@
+.answer-page {
+  --background: #faf7f2;
+  display: flex;
+  justify-content: center;
+}
+
+.answer-card {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  padding: 20px 18px;
+  background: #fffdf8;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.answer-question {
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.answer-card ion-textarea {
+  margin-top: 6px;
+}
+
+.answer-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.center-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: auto;
+}
+
+.answer-footer ion-button {
+  --background: transparent;
+  --color: #4a4852;
+  --border-color: #4b4a4c;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-radius: 10px;
+  --box-shadow: none;
+}

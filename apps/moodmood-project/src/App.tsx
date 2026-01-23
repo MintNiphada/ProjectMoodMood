@@ -5,6 +5,11 @@ import { IonReactRouter } from "@ionic/react-router";
 import Tabs from "./pages/Tabs";
 import AddMood from "./pages/AddMood";
 import Login from "./pages/Login";
+import Reflection from "./pages/Reflection";
+import ReflectionHistory from "./pages/ReflectionHistory";
+import ReflectionQuestions from "./pages/ReflectionQuestions";
+import ReflectionAnswer from './pages/ReflectionAnswer'
+
 
 /* Ionic CSS */
 import "@ionic/react/css/core.css";
@@ -23,6 +28,18 @@ const App: React.FC = () => (
 
       {/* หน้าที่มี Tabs */}
       <Route path="/tabs" component={Tabs} />
+      
+      {/* Reflection pages */}
+      <Route exact path="/tabs/reflection" component={Reflection} />
+      <Route exact path="/tabs/reflection/history" component={ReflectionHistory} />
+      <Route exact path="/tabs/reflection/:category" component={ReflectionQuestions} />
+
+      {/* การตอบกับประวัติการตอบ */}
+      <Route exact path="/tabs/reflection" component={Reflection} />
+      <Route exact path="/tabs/reflection/history" component={ReflectionHistory} />
+      <Route exact path="/tabs/reflection/:category" component={ReflectionQuestions} />
+      <Route exact path="/tabs/reflection/:category/:index" component={ReflectionAnswer} />
+
 
       {/* default */}
       <Redirect exact from="/" to="/tabs/home" />
