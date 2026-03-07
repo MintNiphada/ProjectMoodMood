@@ -4,11 +4,14 @@ import { IonReactRouter } from "@ionic/react-router";
 
 import Tabs from "./pages/Tabs";
 import AddMood from "./pages/AddMood";
-import Login from "./pages/login+register/into";
 import Reflection from "./pages/Reflection";
 import ReflectionHistory from "./pages/ReflectionHistory";
 import ReflectionQuestions from "./pages/ReflectionQuestions";
 import ReflectionAnswer from './pages/ReflectionAnswer'
+
+import into from "./pages/login+register/into";
+import Login from "./pages/login+register/Login";
+import Register from "./pages/login+register/register";
 
 
 /* Ionic CSS */
@@ -23,8 +26,12 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       {/* หน้าไม่มี Tabs */}
-      <Route path="/login" component={Login} exact />
       <Route path="/add-mood" component={AddMood} exact />
+
+      <Route path="/into" component={into} exact />
+      <Route path="/login" component={Login} exact />
+      <Route path="/register" component={Register} exact />
+
 
       {/* หน้าที่มี Tabs */}
       <Route path="/tabs" component={Tabs} />
@@ -42,7 +49,7 @@ const App: React.FC = () => (
 
 
       {/* default */}
-      <Redirect exact from="/" to="/login" />
+      <Redirect exact from="/" to="/into" />
     </IonReactRouter>
   </IonApp>
 );

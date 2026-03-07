@@ -15,11 +15,7 @@ const Intro: React.FC = () => {
       <IonContent fullscreen className="intro-content">
         <div className="intro-container">
           <div className="intro-logo-section">
-            {/* TODO: Replace with actual duck image */}
-            <div className="intro-duck-placeholder">
-              <span className="duck-emoji">🐥</span>
-            </div>
-
+            <img src="/assets/okay.svg" className="intro-duck-img" />
             <h1 className="intro-title">MoodMood</h1>
             <p className="intro-subtitle">แอปสำหรับบันทึกอารมณ์ในแต่ละวัน</p>
           </div>
