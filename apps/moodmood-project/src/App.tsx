@@ -12,6 +12,7 @@ import Reflection from './pages/Reflection';
 import ReflectionHistory from './pages/ReflectionHistory';
 import ReflectionQuestions from './pages/ReflectionQuestions';
 import ReflectionAnswer from './pages/ReflectionAnswer';
+import AddActivity from "./pages/AddActivity";
 
 import Intro from './pages/login+register/into';
 import Login from './pages/login+register/Login';
@@ -39,7 +40,7 @@ const AppRoutes: React.FC = () => {
       <Route exact path="/tabs/reflection/:category" component={ReflectionQuestions} />
       <Route exact path="/tabs/reflection/:category/:index" component={ReflectionAnswer} />
 
-      {/* Default redirect: login แล้ว → home, ยังไม่ login → into */}
+
       <Redirect exact from="/" to={currentUser ? '/tabs/home' : '/into'} />
     </IonReactRouter>
   );
