@@ -4,7 +4,7 @@ import { IonReactRouter } from "@ionic/react-router";
 
 import Tabs from "./pages/Tabs";
 import AddMood from "./pages/AddMood";
-import Login from "./pages/Login";
+import Login from "./pages/login+register/into";
 import Reflection from "./pages/Reflection";
 import ReflectionHistory from "./pages/ReflectionHistory";
 import ReflectionQuestions from "./pages/ReflectionQuestions";
@@ -42,7 +42,7 @@ const App: React.FC = () => (
 
 
       {/* default */}
-      <Redirect exact from="/" to="/tabs/home" />
+      <Redirect exact from="/" to="/login" />
     </IonReactRouter>
   </IonApp>
 );
