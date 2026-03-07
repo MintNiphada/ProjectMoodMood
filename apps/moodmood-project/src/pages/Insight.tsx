@@ -1,21 +1,27 @@
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent
-} from "@ionic/react";
+import { IonPage, IonContent } from "@ionic/react";
+
+import InsightHeader from "../components/insight/InsightHeader";
+import StreakCards from "../components/insight/StreakCards";
+import MoodSummary from "../components/insight/MoodSummary";
+import TagSummary from "../components/insight/TagSummary";
+
+import "./Insight.css";
 
 const Insight: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>ข้อมูลเชิงลึก</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        Insight Page
+      <IonContent fullscreen className="insight-page">
+
+        <h1 className="page-title">ข้อมูลเชิงลึก</h1>
+
+        <InsightHeader />
+
+        <StreakCards />
+
+        <MoodSummary />
+
+        <TagSummary />
+
       </IonContent>
     </IonPage>
   );
