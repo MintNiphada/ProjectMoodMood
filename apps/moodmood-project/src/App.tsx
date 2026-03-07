@@ -9,6 +9,7 @@ import Reflection from "./pages/Reflection";
 import ReflectionHistory from "./pages/ReflectionHistory";
 import ReflectionQuestions from "./pages/ReflectionQuestions";
 import ReflectionAnswer from './pages/ReflectionAnswer'
+import AddActivity from "./pages/AddActivity";
 
 
 /* Ionic CSS */
@@ -25,10 +26,11 @@ const App: React.FC = () => (
       {/* หน้าไม่มี Tabs */}
       <Route path="/login" component={Login} exact />
       <Route path="/add-mood" component={AddMood} exact />
+      <Route path="/add-activity" component={AddActivity} exact />
 
       {/* หน้าที่มี Tabs */}
       <Route path="/tabs" component={Tabs} />
-      
+
       {/* Reflection pages */}
       <Route exact path="/tabs/reflection" component={Reflection} />
       <Route exact path="/tabs/reflection/history" component={ReflectionHistory} />
