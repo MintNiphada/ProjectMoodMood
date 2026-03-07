@@ -70,8 +70,10 @@ const Home: React.FC = () => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
+      const apiKey = import.meta.env.VITE_WEATHER_KEY;
+
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=0144b8ee2087d3a617b99067bb66f541&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
       );
 
       const data = await res.json();
