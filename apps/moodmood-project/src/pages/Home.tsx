@@ -14,10 +14,14 @@ import {
   IonCheckbox,
   IonAlert,
 } from "@ionic/react";
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import "./Home.css";
-import {IonIcon} from "@ionic/react";
-import {flameOutline, cloudyOutline, sunnyOutline, settingsOutline} from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
+import { flameOutline, cloudyOutline, sunnyOutline, settingsOutline } from "ionicons/icons";
+
+import { auth, db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+
 
 type Todo = {
   id: number;
@@ -25,9 +29,28 @@ type Todo = {
   done: boolean;
 };
 
+
+
+
+
+
 const Home: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [showAlert, setShowAlert] = useState(false);
+
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = auth.currentUser;
+      const docRef = doc(db, 'users', user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setUsername(docSnap.data().username);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const addTodo = (text: string) => {
     if (!text.trim()) return;
@@ -36,10 +59,10 @@ const Home: React.FC = () => {
 
   const today = new Date();
   const thaiDate = today.toLocaleDateString("th-TH", {
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-  year: "numeric",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 
   return (
@@ -52,61 +75,61 @@ const Home: React.FC = () => {
 
       <IonContent fullscreen className="ion-padding home-content">
 
-      <div className="home-top">
-  <div className="home-left">
-    <div className="home-greeting">สวัสดี User!</div>
-    <div className="home-date">{thaiDate}</div>
-  </div>
+        <div className="home-top">
+          <div className="home-left">
+            <div className="home-greeting">สวัสดี {username}</div>
+            <div className="home-date">{thaiDate}</div>
+          </div>
 
-<div className="home-right">
-  <div className="home-icon">
-    <IonIcon icon={flameOutline} />
-    <span>10</span>
-  </div>
-  <IonIcon icon={settingsOutline} className="home-gear" />
-</div>
-</div>
-
- 
-      <IonCard className="mood-card">
-        <IonCardHeader className="mood-header">
-          <img src="/assets/veryhappy.svg" alt="very happy" className="mood-img"/>
-        <IonLabel>วันนี้เป็นยังไงบ้าง?</IonLabel>
-        </IonCardHeader>
-
-        <IonCardContent className="mood-content">
-        <IonButton expand="block" routerLink="/add-mood" className="mood-button">+ บันทึกอารมณ์</IonButton>
-        </IonCardContent>
-
-      </IonCard>
-
-<div className="info-row">
-<IonCard className="streak-card">
-  <IonCardContent className="info-card-content">
-    <div className="info-title">บันทึกต่อเนื่อง</div>
-
-    <div className="streak-row">
-      <IonIcon icon={flameOutline} className="streak-icon" />
-      <span className="streak-count">10</span>
-    </div>
-  </IonCardContent>
-</IonCard>
+          <div className="home-right">
+            <div className="home-icon">
+              <IonIcon icon={flameOutline} />
+              <span>10</span>
+            </div>
+            <IonIcon icon={settingsOutline} className="home-gear" />
+          </div>
+        </div>
 
 
-<IonCard className="weather-card">
-  <IonCardContent className="info-card-content">
-    <div className="info-title">อากาศวันนี้</div>
+        <IonCard className="mood-card">
+          <IonCardHeader className="mood-header">
+            <img src="/assets/veryhappy.svg" alt="very happy" className="mood-img" />
+            <IonLabel>วันนี้เป็นยังไงบ้าง?</IonLabel>
+          </IonCardHeader>
 
-    <div className="weather-row">
-      <IonIcon icon={sunnyOutline} className="weather-icon" />
-      <div className="weather-text-group">
-        <div className="weather-temp">แดดออก</div>
-        <div className="weather-location">ขอนแก่น</div>
-      </div>
-    </div>
-  </IonCardContent>
-</IonCard>
-</div>
+          <IonCardContent className="mood-content">
+            <IonButton expand="block" routerLink="/add-mood" className="mood-button">+ บันทึกอารมณ์</IonButton>
+          </IonCardContent>
+
+        </IonCard>
+
+        <div className="info-row">
+          <IonCard className="streak-card">
+            <IonCardContent className="info-card-content">
+              <div className="info-title">บันทึกต่อเนื่อง</div>
+
+              <div className="streak-row">
+                <IonIcon icon={flameOutline} className="streak-icon" />
+                <span className="streak-count">10</span>
+              </div>
+            </IonCardContent>
+          </IonCard>
+
+
+          <IonCard className="weather-card">
+            <IonCardContent className="info-card-content">
+              <div className="info-title">อากาศวันนี้</div>
+
+              <div className="weather-row">
+                <IonIcon icon={sunnyOutline} className="weather-icon" />
+                <div className="weather-text-group">
+                  <div className="weather-temp">แดดออก</div>
+                  <div className="weather-location">ขอนแก่น</div>
+                </div>
+              </div>
+            </IonCardContent>
+          </IonCard>
+        </div>
 
         <IonCard className="todo-card">
           <IonCardHeader>
@@ -120,57 +143,57 @@ const Home: React.FC = () => {
             <IonList>
               {todos.map((todo) => (
                 <IonItem key={todo.id} className="todo-item">
-                 <IonCheckbox
+                  <IonCheckbox
                     className="circle-checkbox"
                     slot="start"
                     checked={todo.done}
                     onIonChange={() =>
-                    setTodos(
-                    todos.map((t) =>
-                    t.id === todo.id ? { ...t, done: !t.done } : t
-                  )
-                )
-              }
-            />
+                      setTodos(
+                        todos.map((t) =>
+                          t.id === todo.id ? { ...t, done: !t.done } : t
+                        )
+                      )
+                    }
+                  />
 
                   <IonLabel className={todo.done ? "todo-done" : ""}>
                     {todo.text}
                   </IonLabel>
-                        <IonButton slot="end" fill="clear" 
-                          onClick={() =>
-                          setTodos(todos.filter((t) => t.id !== todo.id))
-                          }
-                          >x
-                        </IonButton>
+                  <IonButton slot="end" fill="clear"
+                    onClick={() =>
+                      setTodos(todos.filter((t) => t.id !== todo.id))
+                    }
+                  >x
+                  </IonButton>
                 </IonItem>
               ))}
             </IonList>
           </IonCardContent>
         </IonCard>
 
-       <IonAlert
-  key={showAlert ? "open" : "closed"}  
-  isOpen={showAlert}
-  onDidDismiss={() => setShowAlert(false)}
-  header="เพิ่มรายการ"
-  inputs={[
-    {
-      name: "todo",
-      type: "text",
-      placeholder: "เพิ่มรายการที่ต้องทำ...",
-    },
-  ]}
-  buttons={[
-    { text: "ยกเลิก", role: "cancel" },
-    {
-      text: "เพิ่ม",
-      handler: (data) => {
-        addTodo(data.todo);
-        setShowAlert(false);
-      },
-    },
-  ]}
-/>
+        <IonAlert
+          key={showAlert ? "open" : "closed"}
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          header="เพิ่มรายการ"
+          inputs={[
+            {
+              name: "todo",
+              type: "text",
+              placeholder: "เพิ่มรายการที่ต้องทำ...",
+            },
+          ]}
+          buttons={[
+            { text: "ยกเลิก", role: "cancel" },
+            {
+              text: "เพิ่ม",
+              handler: (data) => {
+                addTodo(data.todo);
+                setShowAlert(false);
+              },
+            },
+          ]}
+        />
 
       </IonContent>
     </IonPage>
