@@ -28,16 +28,15 @@ import {
   rainyOutline
 } from "ionicons/icons";
 
+import { useHistory } from "react-router";
 import { auth, db } from "../firebase";
-import { doc, updateDoc, getDoc, collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
-import { useHistory } from 'react-router-dom';
-
-
+import { doc, updateDoc, getDoc, collection, addDoc, getDocs, deleteDoc, serverTimestamp, query, orderBy } from "firebase/firestore";
 
 type Todo = {
   id: number;
   text: string;
   done: boolean;
+  date?: any;
 };
 
 type Weather = {
@@ -70,8 +69,12 @@ useEffect(() => {
 
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
-    const snapshot = await getDocs(collection(db, "users", user.uid, "todos"));
-    const list: Todo[] = [];
+    const q = query(
+      collection(db, "users", user.uid, "todos"),
+      orderBy("date", "desc")
+    );
+
+const snapshot = await getDocs(q);    const list: Todo[] = [];
 
     snapshot.forEach((doc) => {
       const data = doc.data();
@@ -79,7 +82,8 @@ useEffect(() => {
       list.push({
         id: data.id,
         text: data.text,
-        done: data.done
+        done: data.done,
+        date: data.date
       });
     });
 
@@ -109,15 +113,19 @@ const addTodo = async (text: string) => {
   const newTodo = {
     id,
     text,
-    done: false
+    done: false,
+    date: serverTimestamp()
   };
 
-  setTodos([...todos, newTodo]);
+  setTodos((prev) => [newTodo, ...prev]);
 
-  await addDoc(collection(db, "users", user.uid, "todos"), newTodo);
+  await addDoc(
+    collection(db, "users", user.uid, "todos"),
+    newTodo
+  );
 
+  setShowAlert(false);
 };
-
 
   const today = new Date();
 
@@ -252,8 +260,11 @@ const addTodo = async (text: string) => {
               <span>{streak}</span>
             </div>
 
-            <IonIcon icon={settingsOutline} className="home-gear" onClick={() => history.push('/settings')}/>
-
+            <IonIcon
+              icon={settingsOutline}
+              className="home-gear"
+              onClick={() => history.push('/settings')}
+            />
           </div>
 
         </div>
@@ -360,38 +371,37 @@ const addTodo = async (text: string) => {
               {todos.map((todo) => (
 
                 <IonItem key={todo.id} className="todo-item">
+                <IonCheckbox
+                  className="circle-checkbox"
+                  slot="start"
+                  checked={todo.done}
+                  onIonChange={async (e) => {
 
-<IonCheckbox
-  className="circle-checkbox"
-  slot="start"
-  checked={todo.done}
-  onIonChange={async (e) => {
+                    const user = auth.currentUser;
+                    if (!user) return;
 
-    const user = auth.currentUser;
-    if (!user) return;
+                    const updated = e.detail.checked;
 
-    const updated = e.detail.checked;
+                    setTodos((prev) =>
+                      prev.map((t) =>
+                        t.id === todo.id
+                          ? { ...t, done: updated }
+                          : t
+                      )
+                    );
 
-    setTodos((prev) =>
-      prev.map((t) =>
-        t.id === todo.id
-          ? { ...t, done: updated }
-          : t
-      )
-    );
+                    const snapshot = await getDocs(
+                      collection(db, "users", user.uid, "todos")
+                    );
 
-    const snapshot = await getDocs(
-      collection(db, "users", user.uid, "todos")
-    );
+                    snapshot.forEach(async (d) => {
+                      if (d.data().id === todo.id) {
+                        await updateDoc(d.ref, { done: updated });
+                      }
+                    });
 
-    snapshot.forEach(async (d) => {
-      if (d.data().id === todo.id) {
-        await updateDoc(d.ref, { done: updated });
-      }
-    });
-
-  }}
-/>
+                  }}
+                />
 
                   <IonLabel className={todo.done ? "todo-done" : ""}>
                     {todo.text}
@@ -428,27 +438,27 @@ const addTodo = async (text: string) => {
         </IonCard>
 
         <IonAlert
+          key={showAlert ? "open" : "close"}
           isOpen={showAlert}
           onDidDismiss={() => setShowAlert(false)}
-          header="เพิ่มรายการ"
-          inputs={[
-            {
-              name: "todo",
-              type: "text",
-              placeholder: "เพิ่มรายการที่ต้องทำ..."
-            }
-          ]}
-          buttons={[
-            { text: "ยกเลิก", role: "cancel" },
-            {
-              text: "เพิ่ม",
-              handler: (data) => {
-                addTodo(data.todo);
+            header="เพิ่มรายการ"
+            inputs={[
+              {
+                name: "todo",
+                type: "text",
+                placeholder: "เพิ่มรายการที่ต้องทำ..."
               }
-            }
-          ]}
-        />
-
+            ]}
+            buttons={[
+              { text: "ยกเลิก", role: "cancel" },
+              {
+                text: "เพิ่ม",
+                handler: (data) => {
+                  addTodo(data.todo);
+                }
+              }
+            ]}
+          />
       </IonContent>
 
     </IonPage>
