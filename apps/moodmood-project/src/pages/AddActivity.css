@@ -1,122 +1,64 @@
-/* page padding */
-
-ion-content.add-activity-page::part(scroll){
-  padding:16px;
-  padding-bottom:80px;
-  background:#f7f4ec;
+/* src/pages/AddActivity.css */
+ion-content.add-activity-page::part(scroll) {
+  padding: 16px;
+  padding-bottom: 80px;
+  background: #FAF8F1;
 }
 
-/* back button */
-
-.back-btn{
-  background:none;
-  border:none;
-  font-size:14px;
-  margin-bottom:12px;
-  color:#444;
+.back-btn {
+  background: none; border: none;
+  font-size: 14px; margin-bottom: 12px; color: #444; cursor: pointer;
 }
 
-/* main card */
-
-.add-card{
-  border:1px solid #d5d0c6;
-  border-radius:18px;
-  padding:20px;
-  background:white;
+.add-card {
+  border: 1px solid #d5d0c6; border-radius: 18px;
+  padding: 20px; background: white;
 }
 
-/* title */
+.add-card h2 { text-align: center; font-size: 20px; margin-bottom: 4px; }
+.date { text-align: center; font-size: 13px; color: #777; margin-bottom: 16px; }
 
-.add-card h2{
-  text-align:center;
-  font-size:20px;
-  margin-bottom:4px;
+.section-label { font-size: 14px; color: #555; margin-bottom: 10px; font-weight: 500; }
+
+.activity-selector {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 16px;
 }
 
-/* date */
-
-.date{
-  text-align:center;
-  font-size:13px;
-  color:#777;
-  margin-bottom:16px;
+.activity-item {
+  border: 1px solid #d5d0c6; border-radius: 14px;
+  padding: 14px; background: #faf8f3;
+  font-size: 14px; display: flex; align-items: center; gap: 10px;
+  cursor: pointer; transition: all 0.15s;
 }
 
-/* activity selector */
-
-.activity-selector{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:16px;
+.activity-item.selected {
+  background: #F3DE9D; border-color: #C8A83A; font-weight: 600;
 }
 
-.activity-selector button{
-  border:1px solid #d5d0c6;
-  border-radius:14px;
-  padding:14px;
-  background:#faf8f3;
-  font-size:14px;
+.activity-item .activity-icon {
+  width: 32px; height: 32px; display: flex; align-items: center;
+  justify-content: center; border-radius: 10px; background: #e8e6dc;
+}
+.activity-item.selected .activity-icon { background: #E8C96A; }
+.activity-item .activity-icon ion-icon { font-size: 18px; }
+
+.duration {
+  width: 100%; margin-bottom: 12px; border-radius: 16px;
+  padding: 10px; border: 1px solid #d5d0c6; background: #faf8f3;
+  font-size: 14px;
 }
 
-/* dropdown */
-
-.duration{
-  width:100%;
-  margin-bottom:12px;
-  border-radius:16px;
-  padding:10px;
-  border:1px solid #d5d0c6;
+textarea {
+  width: 100%; height: 90px; border-radius: 14px;
+  border: 1px solid #d5d0c6; padding: 10px; margin-bottom: 18px;
+  background: #faf8f3; font-size: 14px; resize: none;
+  box-sizing: border-box;
 }
 
-/* textarea */
-
-textarea{
-  width:100%;
-  height:90px;
-  border-radius:14px;
-  border:1px solid #d5d0c6;
-  padding:10px;
-  margin-bottom:18px;
-}
-
-/* save button */
-
-.save-btn{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:20px;
-  background:#f3de9d;
-  font-weight:600;
-}
-
-/*  */
-
-.activity-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  border:1px solid #d5d0c6;
-  border-radius:14px;
-  padding:12px;
-
-  background:#ffffff;
-}
-
-.activity-icon{
-  width:36px;
-  height:36px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:10px;
-  background:#e8e6dc;
-}
-
-.activity-icon ion-icon{
-  font-size:20px;
+.save-btn {
+  width: 100%; padding: 12px; border: none;
+  border-radius: 20px; background: #f3de9d;
+  font-weight: 600; font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
 }
