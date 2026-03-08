@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { MoodType } from '../types/Mood';
 import { MOOD_ICON, MOOD_LABEL } from '../constants/moods';
 import './moodselector.css';
@@ -22,32 +21,23 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({
   onSelect
 }) => {
 
-  const [activeMoods, setActiveMoods] = useState<MoodType[]>(selected);
-
-  // sync ค่าเวลามี selected จากภายนอก (เช่นหน้า Edit)
-  useEffect(() => {
-    setActiveMoods(selected);
-  }, [selected]);
-
   const toggleMood = (mood: MoodType) => {
 
     let newSelected: MoodType[];
 
-    if (activeMoods.includes(mood)) {
+    if (selected.includes(mood)) {
 
-      newSelected = activeMoods.filter(m => m !== mood);
+      newSelected =
+        selected.filter(m => m !== mood);
 
     } else {
 
-      if (activeMoods.length >= 2) {
-        return;
-      }
+      if (selected.length >= 2) return;
 
-      newSelected = [...activeMoods, mood];
+      newSelected =
+        [...selected, mood];
 
     }
-
-    setActiveMoods(newSelected);
 
     onSelect(newSelected);
 
@@ -59,7 +49,7 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({
 
       {MOODS.map(mood => {
 
-        const active = activeMoods.includes(mood);
+        const active = selected.includes(mood);
 
         return (
 

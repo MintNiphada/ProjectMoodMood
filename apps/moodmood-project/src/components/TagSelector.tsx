@@ -1,6 +1,12 @@
-import { useState, useEffect } from 'react';
-
-const TAGS = ['ความรัก', 'สุขภาพ', 'การงาน', 'เงิน', 'เรียน', 'ครอบครัว', 'เพื่อน'];
+const TAGS = [
+  'ความรัก',
+  'สุขภาพ',
+  'การงาน',
+  'เงิน',
+  'เรียน',
+  'ครอบครัว',
+  'เพื่อน'
+];
 
 interface TagSelectorProps {
   selected?: string[];
@@ -12,23 +18,24 @@ const TagSelector: React.FC<TagSelectorProps> = ({
   onChange
 }) => {
 
-  const [activeTags, setActiveTags] = useState<string[]>(selected);
-
-  // sync ค่าเวลามี selected จากภายนอก
-  useEffect(() => {
-    setActiveTags(selected);
-  }, [selected]);
-
   const toggle = (tag: string) => {
 
-    const newSelected =
-      activeTags.includes(tag)
-        ? activeTags.filter(t => t !== tag)
-        : [...activeTags, tag];
+    let newSelected: string[];
 
-    setActiveTags(newSelected);
+    if (selected.includes(tag)) {
+
+      newSelected =
+        selected.filter(t => t !== tag);
+
+    } else {
+
+      newSelected =
+        [...selected, tag];
+
+    }
 
     onChange(newSelected);
+
   };
 
   return (
@@ -38,8 +45,9 @@ const TagSelector: React.FC<TagSelectorProps> = ({
       {TAGS.map(tag => (
 
         <button
+          type="button"
           key={tag}
-          className={`tag ${activeTags.includes(tag) ? 'active' : ''}`}
+          className={`tag ${selected.includes(tag) ? 'active' : ''}`}
           onClick={() => toggle(tag)}
         >
           {tag}
@@ -47,7 +55,10 @@ const TagSelector: React.FC<TagSelectorProps> = ({
 
       ))}
 
-      <button className="tag add">
+      <button
+        type="button"
+        className="tag add"
+      >
         + เพิ่มรายการ
       </button>
 
