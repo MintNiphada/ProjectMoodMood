@@ -18,7 +18,7 @@ import Intro    from './pages/login+register/into';
 import Login    from './pages/login+register/Login';
 import Register from './pages/login+register/register';
 
-import Settings        from './pages/settings/settings';
+import Settings        from './pages/settings/Settings';
 import SettingsAccount from './pages/settings/SettingAccount';
 import SettingsPin     from './pages/settings/SettingPin';
 import SettingsAbout   from './pages/settings/SettingAbout';
