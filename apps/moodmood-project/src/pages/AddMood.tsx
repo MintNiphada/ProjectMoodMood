@@ -15,6 +15,8 @@ import MoodSelector from '../components/MoodSelector';
 import TagSelector from '../components/TagSelector';
 import { MoodType } from '../types/Mood';
 
+import { updateStreak } from '../utils/streak';
+
 import './AddMood.css';
 
 dayjs.locale('th');

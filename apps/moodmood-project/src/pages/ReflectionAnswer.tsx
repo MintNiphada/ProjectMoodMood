@@ -12,6 +12,8 @@ import {
 import { useParams, useHistory } from "react-router-dom";
 import "./ReflectionAnswer.css";
 import { useState } from "react";
+import { auth, db } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const categoryMap: any = {
   self: {
@@ -131,20 +133,21 @@ const ReflectionAnswer: React.FC = () => {
   const question = categoryMap[category]?.questions[Number(index)];
   const [answer, setAnswer] = useState("");
 
-  const saveAnswer = () => {
-    const old = JSON.parse(localStorage.getItem("reflectionHistory") || "[]");
+  const saveAnswer = async () => {
 
-    const newItem = {
-      id: Date.now(),
-      category,
-      question,
-      answer,
-      date: new Date().toISOString()
-    };
+    if (!answer.trim()) return;
 
-    localStorage.setItem(
-      "reflectionHistory",
-      JSON.stringify([newItem, ...old])
+    const user = auth.currentUser;
+    if (!user) return;
+
+    await addDoc(
+      collection(db, "users", user.uid, "reflections"),
+      {
+        category,
+        question,
+        answer,
+        date: serverTimestamp()
+      }
     );
 
     history.push("/tabs/reflection/history");
@@ -158,7 +161,6 @@ const ReflectionAnswer: React.FC = () => {
             <IonBackButton defaultHref={`/tabs/reflection/${category}`} text="กลับ" />
         </IonButtons>
         <IonTitle className="center-title">ตอบคำถาม</IonTitle>
-        <br />
         </IonToolbar>
     </IonHeader>
 
