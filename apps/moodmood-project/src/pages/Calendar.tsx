@@ -13,7 +13,7 @@ import MoodCalendar from "../components/MoodCalendar";
 import FeedCard from "../components/FeedCard";
 
 import { MoodType, FeedEntry } from "../types/Mood";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
 const Calendar: React.FC = () => {
@@ -83,7 +83,7 @@ const Calendar: React.FC = () => {
     setFeedData(feed);
   };
 
-  useEffect(() => { fetchMoods(); }, [currentDate]);
+  useEffect(() => { fetchMoods(); fetchStreak(); }, [currentDate]);
 
   // ✅ 3. Reset เดือนกลับปัจจุบันทุกครั้งที่กลับมาหน้านี้
   useEffect(() => {
@@ -121,6 +121,21 @@ const Calendar: React.FC = () => {
     });
   };
 
+  const [streak, setStreak] = useState(0);
+const fetchStreak = async () => {
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const ref = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    setStreak(snap.data().streak || 0);
+  }
+
+};
+
   return (
     <IonPage>
       <IonHeader>
@@ -132,7 +147,7 @@ const Calendar: React.FC = () => {
       <IonContent fullscreen>
         <CalendarHeader
           monthLabel={monthLabel}
-          streak={10}
+          streak={streak}
           view={view}
           onToggleView={() =>
             setView(v => v === "calendar" ? "timeline" : "calendar")

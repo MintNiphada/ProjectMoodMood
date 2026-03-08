@@ -1,27 +1,34 @@
-import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
-export const updateStreak = async () => {
-  const user = auth.currentUser;
+export const updateStreak = async (uid: string) => {
 
-  if (!user) return;
-
-  const ref = doc(db, "users", user.uid);
+  const ref = doc(db, "users", uid);
   const snap = await getDoc(ref);
 
   if (!snap.exists()) return;
 
   const data = snap.data();
 
-  const today = new Date().toDateString();
-  const last = data.lastCheckIn;
+  const today = new Date().toISOString().split("T")[0];
 
-  if (last === today) return;
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-  const newStreak = (data.streak || 0) + 1;
+  let newStreak = 1;
+
+  if (data.lastMoodDate === yesterdayStr) {
+    newStreak = (data.streak || 0) + 1;
+  }
+
+  if (data.lastMoodDate === today) {
+    newStreak = data.streak || 1;
+  }
 
   await updateDoc(ref, {
     streak: newStreak,
-    lastCheckIn: today
+    lastMoodDate: today
   });
+
 };
