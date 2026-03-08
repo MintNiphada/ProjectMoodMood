@@ -1,0 +1,32 @@
+.ac-content { --background: #FAF8F1; }
+.ac-container { min-height: 100vh; background: #FAF8F1; padding: 20px 24px 40px; }
+.ac-back { background: none; border: none; font-size: 15px; color: #5A5A5A; cursor: pointer; padding: 8px 0; margin-bottom: 8px; display: block; }
+.ac-title { font-size: 22px; font-weight: 700; color: #3D3D3D; text-align: center; margin: 0 0 20px; }
+
+.ac-card { display: flex; align-items: center; gap: 14px; background: #FFFDF5; border: 1px solid #E0D9CC; border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+.ac-avatar { font-size: 42px; }
+.ac-info { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.ac-name { font-size: 16px; font-weight: 600; color: #3D3D3D; display: flex; align-items: center; gap: 6px; }
+.ac-email { font-size: 13px; color: #888; display: flex; align-items: center; gap: 6px; }
+.ac-edit { font-size: 14px; color: #AAAAAA; cursor: pointer; }
+.ac-input-item { --background: #F5F0E8; --border-radius: 8px; --padding-start: 10px; --min-height: 36px; border: 1px solid #E0D9CC; border-radius: 8px; }
+.ac-save-profile { --background: #E8C96A; --color: #3D3D3D; --border-radius: 20px; --box-shadow: none; font-size: 13px; height: 32px; }
+
+.ac-section { background: #FFFDF5; border: 1px solid #E0D9CC; border-radius: 14px; padding: 16px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; }
+.ac-section-title { font-size: 15px; font-weight: 600; color: #3D3D3D; margin: 0 0 4px; }
+.ac-field { display: flex; flex-direction: column; gap: 4px; }
+.ac-label { font-size: 13px; color: #666; }
+.ac-item { --background: #F5F0E8; --border-radius: 10px; --padding-start: 12px; --inner-padding-end: 0; border: 1px solid #E0D9CC; border-radius: 10px; --min-height: 44px; }
+.ac-btn { --background: #E8C96A; --color: #3D3D3D; --border-radius: 30px; --box-shadow: none; font-size: 15px; font-weight: 600; height: 46px; margin: 4px 0 0; }
+
+.ac-logout-row { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 16px 18px; background: #FFFDF5; border: 1px solid #E0D9CC; border-radius: 14px; cursor: pointer; }
+.ac-logout-left { display: flex; align-items: center; gap: 12px; }
+.ac-logout-icon { font-size: 22px; color: #D9534F; }
+.ac-logout-label { font-size: 16px; color: #D9534F; font-weight: 500; }
+.s-arrow { font-size: 18px; color: #AAAAAA; }
+
+.intro-duck-img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+}

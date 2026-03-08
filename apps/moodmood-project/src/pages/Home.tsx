@@ -28,6 +28,7 @@ import {
   rainyOutline
 } from "ionicons/icons";
 
+import { useHistory } from "react-router";
 import { auth, db } from "../firebase";
 import { doc, updateDoc, getDoc, collection, addDoc, getDocs, deleteDoc, serverTimestamp, query, orderBy } from "firebase/firestore";
 
@@ -46,7 +47,7 @@ type Weather = {
 };
 
 const Home: React.FC = () => {
-
+  const history = useHistory();
   const [weather, setWeather] = useState<Weather>({
     temp: 0,
     description: "",
@@ -259,8 +260,11 @@ const addTodo = async (text: string) => {
               <span>{streak}</span>
             </div>
 
-            <IonIcon icon={settingsOutline} className="home-gear" />
-
+            <IonIcon
+              icon={settingsOutline}
+              className="home-gear"
+              onClick={() => history.push('/settings')}
+            />
           </div>
 
         </div>
