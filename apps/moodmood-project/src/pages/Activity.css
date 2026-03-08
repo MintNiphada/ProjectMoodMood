@@ -1,0 +1,84 @@
+ion-content.activity-page::part(scroll){
+  padding:16px;
+  padding-bottom:80px;
+  background:#f7f4ec;
+}
+
+/* header */
+
+.activity-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.activity-header h1{
+  font-size:22px;
+  font-weight:700;
+}
+
+.add-activity-btn{
+  background:#f3de9d;
+  border:none;
+  padding:6px 12px;
+  border-radius:16px;
+}
+
+/* range */
+
+.activity-range{
+  font-size:14px;
+  margin-bottom:16px;
+}
+
+/* section */
+
+.activity-section{
+  margin-bottom:20px;
+}
+
+.activity-date{
+  font-size:14px;
+  color:#666;
+  margin-bottom:8px;
+}
+
+/* card */
+
+.activity-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #d5d0c6;
+
+  margin-bottom:10px;
+  background:white;
+}
+
+.activity-icon{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+  background:#f1ede6;
+
+  margin-right:10px;
+}
+
+.activity-label{
+  flex:1;
+  font-size:16px;
+}
+
+.activity-time{
+  font-size:15px;
+  color:#444;
+}
