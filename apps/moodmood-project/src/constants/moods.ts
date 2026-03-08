@@ -1,12 +1,12 @@
 import { MoodType } from '../types/Mood';
 
 export const MOOD_ICON: Record<MoodType, string> = {
-  okay: '/assets/okay.svg',
-  happy: '/assets/veryhappy.svg',
-  sad: '/assets/sad.svg',
-  angry: '/assets/angy.svg',
-  bored: '/assets/bored.svg',
-  tired: '/assets/tired.svg',
+  okay: '../assets/okay.svg',
+  happy: '../assets/veryhappy.svg',
+  sad: '../assets/sad.svg',
+  angry: '../assets/angy.svg',
+  bored: '../assets/bored.svg',
+  tired: '../assets/tired.svg',
 };
 
 export const MOOD_LABEL: Record<MoodType, string> = {

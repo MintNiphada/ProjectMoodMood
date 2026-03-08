@@ -15,7 +15,7 @@ const Intro: React.FC = () => {
       <IonContent fullscreen className="intro-content">
         <div className="intro-container">
           <div className="intro-logo-section">
-            <img src="/assets/okay.svg" className="intro-duck-img" />
+            <img src="../assets/okay.svg" className="intro-duck-img" />
             <h1 className="intro-title">MoodMood</h1>
             <p className="intro-subtitle">แอปสำหรับบันทึกอารมณ์ในแต่ละวัน</p>
           </div>

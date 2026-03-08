@@ -90,7 +90,7 @@ const SettingsAccount: React.FC = () => {
 
           {/* Profile card */}
           <div className="ac-card">
-            <img src="/assets/okay.svg" className="intro-duck-img" />
+            <img src="../assets/okay.svg" className="intro-duck-img" />
             <div className="ac-info">
               {editUsername ? (
                 <IonItem className="ac-input-item" lines="none">

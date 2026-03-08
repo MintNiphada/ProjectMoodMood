@@ -167,7 +167,7 @@ const Home: React.FC = () => {
 
         <IonCard className="mood-card">
           <IonCardHeader className="mood-header">
-            <img src="/assets/veryhappy.svg" alt="very happy" className="mood-img" />
+            <img src="../assets/veryhappy.svg" alt="very happy" className="mood-img" />
             <IonLabel>วันนี้เป็นยังไงบ้าง?</IonLabel>
           </IonCardHeader>
           <IonCardContent className="mood-content">

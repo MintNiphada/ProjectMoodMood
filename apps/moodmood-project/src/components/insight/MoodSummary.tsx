@@ -1,10 +1,11 @@
 import MoodDonutChart from "../charts/MoodDonutChart";
-import happyDuck from "../../assets/veryhappy.svg";
-import okayDuck from "../../assets/Okay.svg";
-import sadDuck from "../../assets/sad.svg";
-import angryDuck from "../../assets/angy.svg";
-import boredDuck from "../../assets/bored.svg";
-import tiredDuck from "../../assets/Tired.svg";
+import happyDuck from "../assets/veryhappy.svg";
+import okayDuck from "../assets/Okay.svg";
+import sadDuck from "../assets/sad.svg";
+import angryDuck from "../assets/angy.svg";
+import boredDuck from "../assets/bored.svg";
+import tiredDuck from "../assets/Tired.svg";
+
 
 const MoodSummary: React.FC = () => {
     return (
