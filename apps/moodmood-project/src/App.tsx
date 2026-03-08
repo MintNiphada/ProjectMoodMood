@@ -1,16 +1,21 @@
+import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { IonApp } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
+import { AuthProvider, useAuth } from "./context/AuthContext";
+
 import Tabs from "./pages/Tabs";
 import AddMood from "./pages/AddMood";
-import Login from "./pages/Login";
 import Reflection from "./pages/Reflection";
 import ReflectionHistory from "./pages/ReflectionHistory";
 import ReflectionQuestions from "./pages/ReflectionQuestions";
-import ReflectionAnswer from './pages/ReflectionAnswer'
+import ReflectionAnswer from "./pages/ReflectionAnswer";
 import AddActivity from "./pages/AddActivity";
 
+import Intro from "./pages/login+register/into";
+import Login from "./pages/login+register/Login";
+import Register from "./pages/login+register/register";
 
 /* Ionic CSS */
 import "@ionic/react/css/core.css";
@@ -19,33 +24,6 @@ import "@ionic/react/css/structure.css";
 import "@ionic/react/css/typography.css";
 import "@ionic/react/css/palettes/dark.system.css";
 import "./theme/variables.css";
-
-import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-
-import { AuthProvider, useAuth } from './context/AuthContext';
-
-import Tabs from './pages/Tabs';
-import AddMood from './pages/AddMood';
-import Reflection from './pages/Reflection';
-import ReflectionHistory from './pages/ReflectionHistory';
-import ReflectionQuestions from './pages/ReflectionQuestions';
-import ReflectionAnswer from './pages/ReflectionAnswer';
-import AddActivity from "./pages/AddActivity";
-
-import Intro from './pages/login+register/into';
-import Login from './pages/login+register/Login';
-import Register from './pages/login+register/register';
-
-import '@ionic/react/css/core.css';
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-import '@ionic/react/css/palettes/dark.system.css';
-import './theme/variables.css';
-
 const AppRoutes: React.FC = () => {
   const { currentUser } = useAuth();
 
