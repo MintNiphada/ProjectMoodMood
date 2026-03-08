@@ -1,177 +1,100 @@
-ion-content.insight-page::part(scroll){
-  padding:16px;
-  padding-bottom:80px;  
-  background:#f7f4ec;
-}
-/* title */
-
-.page-title{
-  text-align:center;
-  font-size:22px;
-  font-weight:700;
-  margin-bottom:16px;
+/* src/pages/insight.css */
+ion-content.insight-page::part(scroll) {
+  padding: 16px;
+  padding-bottom: 80px;
+  background: #f7f4ec;
 }
 
-/* range selector */
-
-.insight-range{
-  display:flex;
-  justify-content:center;
-  border:1px solid #d5d0c6;
-  border-radius:20px;
-  overflow:hidden;
-  width:260px;
-  margin:0 auto 12px;
+.page-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
-.insight-range button{
-  flex:1;
-  padding:6px 0;
-  border:none;
-  background:transparent;
-  font-size:13px;
+/* Range selector */
+.insight-range {
+  display: flex;
+  justify-content: center;
+  border: 1px solid #d5d0c6;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 260px;
+  margin: 0 auto 12px;
+}
+.insight-range button {
+  flex: 1; padding: 6px 0; border: none;
+  background: transparent; font-size: 13px; cursor: pointer;
+}
+.insight-range .active {
+  background: #f3de9d; border-radius: 20px;
 }
 
-.insight-range .active{
-  background:#f3de9d;
-  border-radius:20px;
+/* Nav prev/next */
+.insight-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.insight-month {
+  font-size: 16px; font-weight: 600; min-width: 160px; text-align: center;
+}
+.nav-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 20px; color: #555; padding: 4px 8px;
+  border-radius: 8px;
+}
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+.nav-btn:not(:disabled):active { background: #eee; }
+
+/* Streak cards */
+.streak-cards { display: flex; gap: 12px; margin-bottom: 16px; }
+.streak-card {
+  flex: 1; display: flex; align-items: center; gap: 10px;
+  padding: 12px; border: 1px solid #d5d0c6;
+  border-radius: 12px; background: white;
+}
+.streak-card ion-icon { font-size: 26px; color: #888; }
+.highlight {
+  background: #f3de9d; padding: 2px 8px;
+  border-radius: 10px; font-weight: 600;
 }
 
-/* month dropdown */
-
-.insight-month{
-  font-size:16px;
-  font-weight:600;
-  margin-bottom:12px;
+/* Insight card */
+.insight-card {
+  border: 1px solid #d5d0c6; border-radius: 14px;
+  padding: 16px; margin-bottom: 16px; background: white;
 }
 
-/* streak cards */
+/* Mood highlight */
+.mood-highlight { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.highlight-duck { width: 60px; height: 60px; }
+.mood-title { font-weight: 600; margin-bottom: 4px; }
+.mood-main { font-size: 20px; font-weight: 700; }
+.mood-desc { font-size: 13px; color: #666; margin-bottom: 12px; }
 
-.streak-cards{
-  display:flex;
-  gap:12px;
-  margin-bottom:16px;
+/* Chart */
+.mood-chart { display: flex; justify-content: center; margin: 20px 0; }
+
+/* Mood list */
+.mood-list { margin-top: 8px; }
+.mood-row {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 8px;
+}
+.tag {
+  padding: 6px 10px; border-radius: 12px;
+  font-size: 12px; margin-right: 6px;
 }
 
-.streak-card{
-  flex:1;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px;
-  border:1px solid #d5d0c6;
-  border-radius:12px;
-  background:white;
+/* Tag summary */
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.tag-pill {
+  border: 1px solid #d5d0c6; padding: 6px 10px;
+  border-radius: 14px; font-size: 13px; background: #faf8f3;
 }
 
-.streak-card ion-icon{
-  font-size:26px;
-  color:#888;
-}
-
-.highlight{
-  background:#f3de9d;
-  padding:2px 8px;
-  border-radius:10px;
-  font-weight:600;
-}
-
-/* insight cards */
-
-.insight-card{
-  border:1px solid #d5d0c6;
-  border-radius:14px;
-  padding:16px;
-  margin-bottom:16px;
-  background:white;
-}
-
-/* mood section */
-
-.mood-title{
-  font-weight:600;
-  margin-bottom:4px;
-}
-
-.mood-main{
-  font-size:20px;
-  font-weight:700;
-}
-
-.mood-desc{
-  font-size:13px;
-  color:#666;
-  margin-bottom:12px;
-}
-
-.mood-list{
-  margin-top:10px;
-}
-
-.mood-list div{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:6px;
-}
-
-/* mood tags */
-
-.tag{
-  padding:6px 10px;
-  border-radius:12px;
-  font-size:12px;
-  margin-right:6px;
-}
-
-.tag.happy{ background:#f6e6a6; }
-.tag.okay{ background:#bfe1d5; }
-.tag.bored{ background:#ddd; }
-.tag.sad{ background:#cfd6f2; }
-.tag.angry{ background:#f4b4b4; }
-.tag.tired{ background:#d6c7f4; }
-
-/* tag summary */
-
-.tag-list{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.tag-pill{
-  border:1px solid #d5d0c6;
-  padding:6px 10px;
-  border-radius:14px;
-  font-size:13px;
-  background:#faf8f3;
-}
-
-.mood-highlight{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:12px;
-}
-
-.highlight-duck{
-  width:60px;
-  height:60px;
-}
-
-/* Mood Summary */
-.mood-chart{
-  display:flex;
-  justify-content:center;
-  margin:20px 0;
-}
-
-.mood-list{
-  margin-top:8px;
-}
-
-.mood-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:8px;
-}
+.no-data { text-align: center; color: #999; padding: 20px 0; }
+.insight-loading { text-align: center; color: #999; margin-top: 60px; }
