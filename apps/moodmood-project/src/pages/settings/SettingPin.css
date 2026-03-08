@@ -1,0 +1,31 @@
+.pin-content { --background: #FAF8F1; }
+.pin-container { min-height: 100vh; background: #FAF8F1; padding: 20px 24px 40px; display: flex; flex-direction: column; align-items: center; }
+.pin-back { background: none; border: none; font-size: 15px; color: #5A5A5A; cursor: pointer; padding: 8px 0; margin-bottom: 8px; align-self: flex-start; }
+.pin-title { font-size: 26px; font-weight: 700; color: #3D3D3D; margin: 0 0 4px; }
+.pin-subtitle { font-size: 14px; color: #9A9A9A; margin: 0 0 20px; }
+
+.pin-lock-wrap { margin-bottom: 20px; }
+.pin-lock-icon { font-size: 52px; color: #8A8A8A; }
+
+.pin-dots { display: flex; gap: 18px; margin-bottom: 32px; }
+.pin-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #CCCCCC; background: transparent; transition: background 0.15s, border-color 0.15s; }
+.pin-dot.filled { background: #3D3D3D; border-color: #3D3D3D; }
+
+.pin-shake { animation: shake 0.4s ease; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-8px); }
+  40%      { transform: translateX(8px); }
+  60%      { transform: translateX(-6px); }
+  80%      { transform: translateX(6px); }
+}
+
+.pin-pad { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 280px; }
+.pin-row { display: flex; justify-content: center; gap: 14px; }
+.pin-key { width: 72px; height: 72px; border-radius: 50%; background: #FFFDF5; border: 1.5px solid #E0D9CC; font-size: 22px; font-weight: 500; color: #3D3D3D; cursor: pointer; transition: background 0.12s; display: flex; align-items: center; justify-content: center; }
+.pin-key:active { background: #EEE5C8; }
+.pin-key-del { background: transparent; border-color: transparent; font-size: 20px; color: #7A7A7A; }
+.pin-key-del:active { background: #F0EAD6; border-color: #E0D9CC; }
+
+.pin-delete-btn { --color: #D9534F; --border-color: #D9534F; --border-radius: 30px; --box-shadow: none; font-size: 15px; font-weight: 600; height: 46px; margin-top: 28px; width: 100%; max-width: 280px; }
+.alert-danger { color: #D9534F !important; }

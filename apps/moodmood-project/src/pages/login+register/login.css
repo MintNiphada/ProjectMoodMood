@@ -17,7 +17,6 @@
 .back-button {
   background: none;
   border: none;
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 15px;
   color: #5A5A5A;
   cursor: pointer;
@@ -47,7 +46,6 @@
 }
 
 .login-page-title {
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: #3D3D3D;
@@ -55,7 +53,6 @@
 }
 
 .login-subtitle {
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 13px;
   color: #9A9A9A;
   margin: 0;
@@ -75,7 +72,6 @@
 }
 
 .form-label {
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 14px;
   color: #4A4A4A;
   font-weight: 500;
@@ -98,7 +94,6 @@
 }
 
 .form-input {
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 15px;
   --color: #3D3D3D;
   --placeholder-color: #C0B9A8;
@@ -106,7 +101,6 @@
 
 /* Forgot Password */
 .forgot-password {
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 12px;
   color: #C8A83A;
   text-align: right;
@@ -127,7 +121,6 @@
   --color: #3D3D3D;
   --border-radius: 30px;
   --box-shadow: none;
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 17px;
   font-weight: 600;
   height: 52px;
@@ -137,7 +130,6 @@
 /* Register Redirect */
 .register-redirect {
   text-align: center;
-  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
   font-size: 13px;
   color: #9A9A9A;
   margin: 4px 0 0;
