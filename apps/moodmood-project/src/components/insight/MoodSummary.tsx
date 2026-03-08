@@ -35,7 +35,7 @@ const MoodSummary: React.FC = () => {
 
   {/* chart */}
   <div className="mood-chart">
-    <MoodDonutChart />
+    <MoodDonutChart data={[]} />
   </div>
 
   {/* list */}
