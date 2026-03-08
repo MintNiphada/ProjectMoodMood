@@ -30,6 +30,9 @@ import {
 
 import { auth, db } from "../firebase";
 import { doc, updateDoc, getDoc, collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
+import { useHistory } from 'react-router-dom';
+
+
 
 type Todo = {
   id: number;
@@ -45,7 +48,7 @@ type Weather = {
 };
 
 const Home: React.FC = () => {
-
+  const history = useHistory();
   const [weather, setWeather] = useState<Weather>({
     temp: 0,
     description: "",
@@ -249,7 +252,7 @@ const addTodo = async (text: string) => {
               <span>{streak}</span>
             </div>
 
-            <IonIcon icon={settingsOutline} className="home-gear" />
+            <IonIcon icon={settingsOutline} className="home-gear" onClick={() => history.push('/settings')}/>
 
           </div>
 

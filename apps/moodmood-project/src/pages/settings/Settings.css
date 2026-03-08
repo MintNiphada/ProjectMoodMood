@@ -1,0 +1,11 @@
+.s-content { --background: #FAF8F1; }
+.s-container { min-height: 100vh; background: #FAF8F1; padding: 20px 24px 40px; }
+.s-back { background: none; border: none; font-size: 15px; color: #5A5A5A; cursor: pointer; padding: 8px 0; margin-bottom: 8px; display: block; }
+.s-title { font-size: 22px; font-weight: 700; color: #3D3D3D; text-align: center; margin: 0 0 28px; }
+.s-menu { display: flex; flex-direction: column; gap: 12px; }
+.s-row { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 16px 18px; background: #FFFDF5; border: 1px solid #E0D9CC; border-radius: 14px; cursor: pointer; transition: background 0.15s; }
+.s-row:active { background: #F5EDD8; }
+.s-row-left { display: flex; align-items: center; gap: 14px; }
+.s-icon { font-size: 22px; color: #5A5A5A; }
+.s-label { font-size: 16px; color: #3D3D3D; font-weight: 500; }
+.s-arrow { font-size: 18px; color: #AAAAAA; }
