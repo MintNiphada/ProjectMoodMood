@@ -48,7 +48,7 @@ const CalendarHeader: React.FC<Props> = ({
           onClick={onOpenMonthPicker}
         >
           {monthLabel}
-          <span className="chevron">▾</span>
+          {/* <span className="chevron">▾</span> */}
         </button>
 
         <button
