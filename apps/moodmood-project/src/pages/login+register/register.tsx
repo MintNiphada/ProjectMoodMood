@@ -36,7 +36,7 @@ const Register: React.FC = () => {
         email,
         createdAt: new Date().toISOString(),
       });
-      setToastMsg('สมัครสมาชิกสำเร็จ! 🎉');
+      setToastMsg('สมัครสมาชิกสำเร็จ!');
       setToastColor('success');
       setShowToast(true);
       setTimeout(() => history.replace('/tabs/home'), 1000);
