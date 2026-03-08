@@ -1,0 +1,155 @@
+
+/* login.css */
+
+.login-content {
+  --background: #FAF8F1;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px 28px 40px;
+  background-color: #FAF8F1;
+}
+
+/* Back Button */
+.back-button {
+  background: none;
+  border: none;
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 15px;
+  color: #5A5A5A;
+  cursor: pointer;
+  padding: 8px 0;
+  text-align: left;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+
+.back-button:hover {
+  color: #3D3D3D;
+}
+
+/* Header */
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-app-title {
+  font-family: 'Georgia', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #3D3D3D;
+  margin: 0 0 4px;
+  letter-spacing: 0.5px;
+}
+
+.login-page-title {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #3D3D3D;
+  margin: 0 0 4px;
+}
+
+.login-subtitle {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 13px;
+  color: #9A9A9A;
+  margin: 0;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 14px;
+  color: #4A4A4A;
+  font-weight: 500;
+  padding-left: 2px;
+}
+
+.form-item {
+  --background: #FFFFFF;
+  --border-radius: 10px;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --inner-padding-end: 0;
+  border: 1.5px solid #E0D9CC;
+  border-radius: 10px;
+  --min-height: 48px;
+}
+
+.form-item.item-has-focus {
+  border-color: #E8C96A;
+}
+
+.form-input {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 15px;
+  --color: #3D3D3D;
+  --placeholder-color: #C0B9A8;
+}
+
+/* Forgot Password */
+.forgot-password {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 12px;
+  color: #C8A83A;
+  text-align: right;
+  cursor: pointer;
+  font-weight: 500;
+  padding-right: 2px;
+}
+
+.forgot-password:hover {
+  color: #B09030;
+}
+
+/* Submit Button */
+.btn-submit {
+  --background: #E8C96A;
+  --background-activated: #D4B355;
+  --background-hover: #D4B355;
+  --color: #3D3D3D;
+  --border-radius: 30px;
+  --box-shadow: none;
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  height: 52px;
+  margin: 6px 0 0;
+}
+
+/* Register Redirect */
+.register-redirect {
+  text-align: center;
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 13px;
+  color: #9A9A9A;
+  margin: 4px 0 0;
+}
+
+.link-text {
+  color: #C8A83A;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link-text:hover {
+  color: #B09030;
+}
