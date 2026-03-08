@@ -31,11 +31,18 @@
   color: #6b5500;
 }
 
+/* ===== mood ===== */
+
 .feed-mood {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 6px;
+}
+
+.feed-mood-icons {
+  display: flex;
+  gap: 4px;
 }
 
 .feed-mood-icon {
@@ -44,48 +51,86 @@
   flex-shrink: 0;
 }
 
+.feed-mood-labels {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
 .feed-mood-label {
   padding: 4px 10px;
-  border-radius: 999px; 
+  border-radius: 999px;
   font-size: 16px;
   font-weight: 600;
-  line-height: 1;       
+  line-height: 1;
   color: #3f3f3f;
   display: inline-flex;
   align-items: center;
 }
 
+/* ===== note ===== */
+
 .feed-note{
-    font-size: smaller;
+  font-size: 14px;
+  margin-top: 6px;
 }
 
-.feed-mood-secondary {
-  display: flex;
-  gap: 4px;
-  margin-left: 4px;
-}
-
-.feed-mood-icon.small {
-  width: 22px;
-  height: 22px;
-}
+/* ===== polaroid image ===== */
 
 .feed-image-wrapper {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
-  justify-content: center; 
+  justify-content: flex-start;
 }
 
-.feed-image {
-  width: 100%;
-  max-width: 180px;         
-  border-radius: 12px;
-  display: block;
+.feed-polaroid {
+  background: white;
+  padding: 12px 12px 36px 12px; 
+  box-shadow:
+    0 6px 6px rgba(0,0,0,0.08),
+    0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid #e2dddd;
+  width: 200px;
 }
+
+
+
+.feed-image {
+  width: 180px;
+  height: 150px;     
+  object-fit: cover; 
+  display: block;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* ===== actions ===== */
 
 .feed-actions {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
 }
 
+/* ===== image modal ===== */
+
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.75);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.image-modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}

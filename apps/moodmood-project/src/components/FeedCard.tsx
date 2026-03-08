@@ -1,6 +1,7 @@
 import { IonIcon } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
 import { Timestamp } from "firebase/firestore";
+import { useState } from "react";
 
 import { FeedEntry, MoodType } from '../types/Mood';
 import { MOOD_ICON, MOOD_LABEL, MOOD_COLOR } from '../constants/moods';
@@ -35,106 +36,128 @@ const formatThaiDateTime = (timestamp?: Timestamp) => {
 const FeedCard: React.FC<Props> = ({ entry, onEdit, onDelete }) => {
 
   const hasImage = Boolean(entry.image);
+  const [preview, setPreview] = useState<string | null>(null);
 
   return (
 
-    <div className={`feed-card ${hasImage ? 'with-image' : 'no-image'}`}>
+    <>
+      <div className={`feed-card ${hasImage ? 'with-image' : 'no-image'}`}>
 
-      {/* header */}
-      <div className="feed-header">
+        {/* header */}
+        <div className="feed-header">
 
-        <div className="feed-date">
-          {formatThaiDateTime(entry.createdAt)}
+          <div className="feed-date">
+            {formatThaiDateTime(entry.createdAt)}
 
-          {entry.tags?.[0] && (
-            <span className="feed-tag">
-              {entry.tags[0]}
-            </span>
-          )}
+            {entry.tags?.[0] && (
+              <span className="feed-tag">
+                {entry.tags[0]}
+              </span>
+            )}
 
-        </div>
+          </div>
 
-        <div className="feed-actions">
+          <div className="feed-actions">
 
-          <IonIcon
-            icon={pencilOutline}
-            className="edit-icon"
-            onClick={() => onEdit?.(entry.id)}
-          />
-
-          <IonIcon
-            icon={trashOutline}
-            className="delete-icon"
-            onClick={() => onDelete?.(entry.id)}
-          />
-
-        </div>
-
-      </div>
-
-      {/* mood */}
-      <div className="feed-mood">
-
-        {/* icon row */}
-        <div className="feed-mood-icons">
-
-          {entry.moods.map((mood: MoodType) => (
-
-            <img
-              key={mood}
-              src={MOOD_ICON[mood]}
-              className="feed-mood-icon"
-              alt={mood}
+            <IonIcon
+              icon={pencilOutline}
+              className="edit-icon"
+              onClick={() => onEdit?.(entry.id)}
             />
 
-          ))}
+            <IonIcon
+              icon={trashOutline}
+              className="delete-icon"
+              onClick={() => onDelete?.(entry.id)}
+            />
+
+          </div>
 
         </div>
 
-        {/* label row */}
-        <div className="feed-mood-labels">
+        {/* mood */}
+        <div className="feed-mood">
 
-          {entry.moods.map((mood: MoodType) => (
+          <div className="feed-mood-icons">
 
-            <span
-              key={mood}
-              className="feed-mood-label"
-              style={{ backgroundColor: MOOD_COLOR[mood] }}
-            >
-              {MOOD_LABEL[mood]}
-            </span>
+            {entry.moods.map((mood: MoodType) => (
 
-          ))}
+              <img
+                key={mood}
+                src={MOOD_ICON[mood]}
+                className="feed-mood-icon"
+                alt={mood}
+              />
+
+            ))}
+
+          </div>
+
+          <div className="feed-mood-labels">
+
+            {entry.moods.map((mood: MoodType) => (
+
+              <span
+                key={mood}
+                className="feed-mood-label"
+                style={{ backgroundColor: MOOD_COLOR[mood] }}
+              >
+                {MOOD_LABEL[mood]}
+              </span>
+
+            ))}
+
+          </div>
 
         </div>
+
+        {/* note */}
+        {entry.note && (
+
+          <div className="feed-note">
+            {entry.note}
+          </div>
+
+        )}
+
+        {/* image */}
+        {hasImage && (
+
+          <div className="feed-image-wrapper">
+
+            <div className="feed-polaroid">
+
+              <img
+                src={entry.image}
+                className="feed-image"
+                alt="mood"
+                onClick={() => setPreview(entry.image!)}
+              />
+
+            </div>
+
+          </div>
+
+        )}
 
       </div>
 
-      {/* note */}
-      {entry.note && (
+      {/* modal preview */}
+      {preview && (
 
-        <div className="feed-note">
-          {entry.note}
-        </div>
-
-      )}
-
-      {/* image */}
-      {hasImage && (
-
-        <div className="feed-image-wrapper">
+        <div className="image-modal" onClick={() => setPreview(null)}>
 
           <img
-            src={entry.image}
-            className="feed-image"
-            alt="mood"
+            src={preview}
+            className="image-modal-content"
+            alt="preview"
           />
 
         </div>
 
       )}
 
-    </div>
+    </>
 
   );
 
