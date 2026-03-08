@@ -29,7 +29,7 @@ import {
 } from "ionicons/icons";
 
 import { auth, db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc, collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
 
 type Todo = {
   id: number;
@@ -56,41 +56,65 @@ const Home: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [showAlert, setShowAlert] = useState(false);
   const [username, setUsername] = useState("");
+  const [streak, setStreak] = useState(0);
 
-  useEffect(() => {
+useEffect(() => {
 
-    const fetchUser = async () => {
+  const fetchUser = async () => {
 
-      const user = auth.currentUser;
-      if (!user) return;
+    const user = auth.currentUser;
+    if (!user) return;
 
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    const snapshot = await getDocs(collection(db, "users", user.uid, "todos"));
+    const list: Todo[] = [];
 
-      if (docSnap.exists()) {
-        setUsername(docSnap.data().username);
-      }
+    snapshot.forEach((doc) => {
+      const data = doc.data();
 
-    };
+      list.push({
+        id: data.id,
+        text: data.text,
+        done: data.done
+      });
+    });
 
-    fetchUser();
+    setTodos(list);
 
-  }, []);
-
-  const addTodo = (text: string) => {
-
-    if (!text.trim()) return;
-
-    setTodos([
-      ...todos,
-      {
-        id: Date.now(),
-        text,
-        done: false
-      }
-    ]);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      setUsername(data.username);
+      setStreak(data.streak || 0);
+    }
 
   };
+
+  fetchUser();
+
+}, []);
+
+const addTodo = async (text: string) => {
+
+  if (!text.trim()) return;
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const id = Date.now();
+
+  const newTodo = {
+    id,
+    text,
+    done: false
+  };
+
+  setTodos([...todos, newTodo]);
+
+  await addDoc(collection(db, "users", user.uid, "todos"), newTodo);
+
+};
+
 
   const today = new Date();
 
@@ -165,6 +189,41 @@ const Home: React.FC = () => {
 
   };
 
+  const updateStreak = async () => {
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const ref = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) return;
+
+  const data = snap.data();
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+  let newStreak = 1;
+
+  if (data.lastMoodDate === yesterdayStr) {
+    newStreak = (data.streak || 0) + 1;
+  }
+
+  if (data.lastMoodDate === today) {
+    newStreak = data.streak;
+  }
+
+  await updateDoc(ref, {
+    streak: newStreak,
+    lastMoodDate: today
+  });
+
+};
+
   return (
     <IonPage>
 
@@ -187,7 +246,7 @@ const Home: React.FC = () => {
 
             <div className="home-icon">
               <IonIcon icon={flameOutline} />
-              <span>10</span>
+              <span>{streak}</span>
             </div>
 
             <IonIcon icon={settingsOutline} className="home-gear" />
@@ -226,7 +285,7 @@ const Home: React.FC = () => {
 
         <div className="info-row">
 
-          <IonCard className="streak-card">
+          <IonCard className="weather-card">
 
             <IonCardContent className="info-card-content">
 
@@ -234,7 +293,7 @@ const Home: React.FC = () => {
 
               <div className="streak-row">
                 <IonIcon icon={flameOutline} className="streak-icon" />
-                <span className="streak-count">10</span>
+                <span className="streak-count">{streak}</span>
               </div>
 
             </IonCardContent>
@@ -299,20 +358,37 @@ const Home: React.FC = () => {
 
                 <IonItem key={todo.id} className="todo-item">
 
-                  <IonCheckbox
-                    className="circle-checkbox"
-                    slot="start"
-                    checked={todo.done}
-                    onIonChange={() =>
-                      setTodos(
-                        todos.map((t) =>
-                          t.id === todo.id
-                            ? { ...t, done: !t.done }
-                            : t
-                        )
-                      )
-                    }
-                  />
+<IonCheckbox
+  className="circle-checkbox"
+  slot="start"
+  checked={todo.done}
+  onIonChange={async (e) => {
+
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const updated = e.detail.checked;
+
+    setTodos((prev) =>
+      prev.map((t) =>
+        t.id === todo.id
+          ? { ...t, done: updated }
+          : t
+      )
+    );
+
+    const snapshot = await getDocs(
+      collection(db, "users", user.uid, "todos")
+    );
+
+    snapshot.forEach(async (d) => {
+      if (d.data().id === todo.id) {
+        await updateDoc(d.ref, { done: updated });
+      }
+    });
+
+  }}
+/>
 
                   <IonLabel className={todo.done ? "todo-done" : ""}>
                     {todo.text}
@@ -321,11 +397,19 @@ const Home: React.FC = () => {
                   <IonButton
                     slot="end"
                     fill="clear"
-                    onClick={() =>
-                      setTodos(
-                        todos.filter((t) => t.id !== todo.id)
-                      )
-                    }
+                    onClick={async () => {
+                      const user = auth.currentUser;
+                      if (!user) return;
+                      setTodos(todos.filter((t) => t.id !== todo.id));
+                      const snapshot = await getDocs(
+                        collection(db, "users", user.uid, "todos")
+                        );
+                        snapshot.forEach(async (d) => {
+                          if (d.data().id === todo.id) {
+                            await deleteDoc(d.ref);
+                            }
+                      });
+                  }}
                   >
                     x
                   </IonButton>

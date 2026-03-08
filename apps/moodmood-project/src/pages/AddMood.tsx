@@ -9,10 +9,16 @@ dayjs.locale('th');
 import MoodSelector from '../components/MoodSelector';
 import TagSelector from '../components/TagSelector';
 
+import { useState } from 'react';
+import { auth, db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import { updateStreak } from '../utils/streak';
+
 import './AddMood.css';
 
 const AddMood: React.FC = () => {
     const history = useHistory();
+    const [note, setNote] = useState('');
 
     return (
         <IonPage>
