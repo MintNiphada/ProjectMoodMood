@@ -101,7 +101,8 @@ const AddMood: React.FC = () => {
                     createdAt: serverTimestamp()
                 }
             );
-
+            
+            await updateStreak();
 
             history.goBack();
 

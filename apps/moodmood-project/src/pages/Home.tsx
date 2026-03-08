@@ -232,7 +232,7 @@ const addTodo = async (text: string) => {
     streak: newStreak,
     lastMoodDate: today
   });
-
+  setStreak(newStreak);
 };
 
   return (
@@ -287,8 +287,11 @@ const addTodo = async (text: string) => {
 
             <IonButton
               expand="block"
-              routerLink="/add-mood"
               className="mood-button"
+              onClick={async () => {
+                await updateStreak();
+                history.push("/add-mood");
+              }}
             >
               + บันทึกอารมณ์
             </IonButton>
