@@ -23,30 +23,47 @@ import {
 
 import { Geolocation } from "@capacitor/geolocation";
 
+// ✅ เพิ่ม import รูป
+import veryHappy from "../assets/veryhappy.svg";
+
 type Todo = { id: number; text: string; done: boolean; date?: any; };
 type Weather = { temp: number; description: string; city: string; icon: string; };
 
 const Home: React.FC = () => {
   const history = useHistory();
   const [weather, setWeather] = useState<Weather>({ temp: 0, description: "", city: "", icon: "" });
-  const [todos, setTodos]         = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [showAlert, setShowAlert] = useState(false);
-  const [username, setUsername]   = useState("");
-  const [streak, setStreak]       = useState(0);
+  const [username, setUsername] = useState("");
+  const [streak, setStreak] = useState(0);
 
-  // ✅ ย้าย fetchUser ออกมาข้างนอก useEffect เพื่อเรียกซ้ำได้
   const fetchUser = async () => {
     const user = auth.currentUser;
     if (!user) return;
+
     const docSnap = await getDoc(doc(db, "users", user.uid));
-    const q = query(collection(db, "users", user.uid, "todos"), orderBy("date", "desc"));
+
+    const q = query(
+      collection(db, "users", user.uid, "todos"),
+      orderBy("date", "desc")
+    );
+
     const snapshot = await getDocs(q);
+
     const list: Todo[] = [];
+
     snapshot.forEach((d) => {
       const data = d.data();
-      list.push({ id: data.id, text: data.text, done: data.done, date: data.date });
+      list.push({
+        id: data.id,
+        text: data.text,
+        done: data.done,
+        date: data.date
+      });
     });
+
     setTodos(list);
+
     if (docSnap.exists()) {
       const data = docSnap.data();
       setUsername(data.username);
@@ -54,11 +71,9 @@ const Home: React.FC = () => {
     }
   };
 
-  // โหลดครั้งแรก
   useEffect(() => {
     fetchUser();
   }, []);
-
 
   useIonViewWillEnter(() => {
     fetchUser();
@@ -69,44 +84,69 @@ const Home: React.FC = () => {
       try {
         const perm = await Geolocation.requestPermissions();
         if (perm.location !== "granted") return;
+
         const pos = await Geolocation.getCurrentPosition({ timeout: 10000 });
+
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
+
         const apiKey = "387e5e7079ea8747e015e50f35b986e0";
+
         const res = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
         );
+
         const data = await res.json();
+
         setWeather({
           temp: Math.round(data.main.temp),
           description: data.weather[0].description,
           city: data.name,
-          icon: data.weather[0].icon,
+          icon: data.weather[0].icon
         });
+
       } catch (e) {
         console.warn("Weather fetch failed:", e);
       }
     };
+
     fetchWeather();
   }, []);
 
   const today = new Date();
+
   const thaiDate = today.toLocaleDateString("th-TH", {
-    weekday: "long", day: "numeric", month: "long", year: "numeric",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
   });
 
   const addTodo = async (text: string) => {
     if (!text.trim()) return;
+
     const user = auth.currentUser;
     if (!user) return;
+
     const id = Date.now();
-    const newTodo = { id, text, done: false, date: serverTimestamp() };
+
+    const newTodo = {
+      id,
+      text,
+      done: false,
+      date: serverTimestamp()
+    };
+
     setTodos((prev) => [newTodo, ...prev]);
-    await addDoc(collection(db, "users", user.uid, "todos"), newTodo);
+
+    await addDoc(
+      collection(db, "users", user.uid, "todos"),
+      newTodo
+    );
+
     setShowAlert(false);
   };
 
-  // ✅ pull-to-refresh
   const handleRefresh = async (event: CustomEvent) => {
     await fetchUser();
     (event.target as HTMLIonRefresherElement).complete();
@@ -118,6 +158,7 @@ const Home: React.FC = () => {
     if (weather.icon.includes("02")) return cloudyOutline;
     if (weather.icon.includes("03") || weather.icon.includes("04")) return cloudyOutline;
     if (weather.icon.includes("09") || weather.icon.includes("10")) return rainyOutline;
+
     return cloudyOutline;
   };
 
@@ -138,6 +179,7 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
+
       <IonHeader>
         <IonToolbar>
           <IonTitle>MoodMood</IonTitle>
@@ -146,101 +188,229 @@ const Home: React.FC = () => {
 
       <IonContent fullscreen className="ion-padding home-content">
 
-        {/* ✅ Pull-to-refresh */}
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
-          <IonRefresherContent pullingText="ดึงเพื่อรีเฟรช" refreshingText="กำลังโหลด..." />
+          <IonRefresherContent
+            pullingText="ดึงเพื่อรีเฟรช"
+            refreshingText="กำลังโหลด..."
+          />
         </IonRefresher>
 
         <div className="home-top">
+
           <div className="home-left">
-            <div className="home-greeting">สวัสดี {username}</div>
-            <div className="home-date">{thaiDate}</div>
+            <div className="home-greeting">
+              สวัสดี {username}
+            </div>
+
+            <div className="home-date">
+              {thaiDate}
+            </div>
           </div>
+
           <div className="home-right">
+
             <div className="home-icon">
               <IonIcon icon={flameOutline} />
               <span>{streak}</span>
             </div>
-            <IonIcon icon={settingsOutline} className="home-gear" onClick={() => history.push('/settings')} />
+
+            <IonIcon
+              icon={settingsOutline}
+              className="home-gear"
+              onClick={() => history.push("/settings")}
+            />
+
           </div>
+
         </div>
 
         <IonCard className="mood-card">
+
           <IonCardHeader className="mood-header">
-            <img src="../assets/veryhappy.svg" alt="very happy" className="mood-img" />
-            <IonLabel>วันนี้เป็นยังไงบ้าง?</IonLabel>
+
+            {/* ✅ ใช้ import รูป */}
+            <img
+              src={veryHappy}
+              alt="very happy"
+              className="mood-img"
+            />
+
+            <IonLabel>
+              วันนี้เป็นยังไงบ้าง?
+            </IonLabel>
+
           </IonCardHeader>
+
           <IonCardContent className="mood-content">
-            <IonButton expand="block" routerLink="/add-mood" className="mood-button">
+
+            <IonButton
+              expand="block"
+              routerLink="/add-mood"
+              className="mood-button"
+            >
               + บันทึกอารมณ์
             </IonButton>
+
           </IonCardContent>
+
         </IonCard>
 
         <div className="info-row">
+
           <IonCard className="weather-card">
+
             <IonCardContent className="info-card-content">
-              <div className="info-title">บันทึกต่อเนื่อง</div>
+
+              <div className="info-title">
+                บันทึกต่อเนื่อง
+              </div>
+
               <div className="streak-row">
                 <IonIcon icon={flameOutline} className="streak-icon" />
                 <span className="streak-count">{streak}</span>
               </div>
+
             </IonCardContent>
+
           </IonCard>
 
           <IonCard className="weather-card">
+
             <IonCardContent className="info-card-content">
-              <div className="info-title">อากาศวันนี้</div>
+
+              <div className="info-title">
+                อากาศวันนี้
+              </div>
+
               <div className="weather-row">
+
                 <IonIcon icon={getWeatherIcon()} className="weather-icon" />
+
                 <div className="weather-text-group">
+
                   <div className="weather-temp">
-                    {weather.description ? translateWeather(weather.description) : "กำลังโหลด..."}
+                    {weather.description
+                      ? translateWeather(weather.description)
+                      : "กำลังโหลด..."}
+
                     {weather.temp > 0 ? ` ${weather.temp}°C` : ""}
                   </div>
-                  <div className="weather-location">{translateCity(weather.city)}</div>
+
+                  <div className="weather-location">
+                    {translateCity(weather.city)}
+                  </div>
+
                 </div>
+
               </div>
+
             </IonCardContent>
+
           </IonCard>
+
         </div>
 
         <IonCard className="todo-card">
+
           <IonCardHeader>
+
             <IonItem lines="none">
-              <IonLabel className="todo-title">To-do list</IonLabel>
-              <IonButton slot="end" fill="clear" onClick={() => setShowAlert(true)}>+ เพิ่มรายการ</IonButton>
+
+              <IonLabel className="todo-title">
+                To-do list
+              </IonLabel>
+
+              <IonButton
+                slot="end"
+                fill="clear"
+                onClick={() => setShowAlert(true)}
+              >
+                + เพิ่มรายการ
+              </IonButton>
+
             </IonItem>
+
           </IonCardHeader>
+
           <IonCardContent>
+
             <IonList>
+
               {todos.map((todo) => (
+
                 <IonItem key={todo.id} className="todo-item">
+
                   <IonCheckbox
                     className="circle-checkbox"
                     slot="start"
                     checked={todo.done}
                     onIonChange={async (e) => {
+
                       const user = auth.currentUser;
                       if (!user) return;
+
                       const updated = e.detail.checked;
-                      setTodos((prev) => prev.map((t) => t.id === todo.id ? { ...t, done: updated } : t));
-                      const snap = await getDocs(collection(db, "users", user.uid, "todos"));
-                      snap.forEach(async (d) => { if (d.data().id === todo.id) await updateDoc(d.ref, { done: updated }); });
+
+                      setTodos((prev) =>
+                        prev.map((t) =>
+                          t.id === todo.id
+                            ? { ...t, done: updated }
+                            : t
+                        )
+                      );
+
+                      const snap = await getDocs(
+                        collection(db, "users", user.uid, "todos")
+                      );
+
+                      snap.forEach(async (d) => {
+                        if (d.data().id === todo.id) {
+                          await updateDoc(d.ref, { done: updated });
+                        }
+                      });
+
                     }}
                   />
-                  <IonLabel className={todo.done ? "todo-done" : ""}>{todo.text}</IonLabel>
-                  <IonButton slot="end" fill="clear" onClick={async () => {
-                    const user = auth.currentUser;
-                    if (!user) return;
-                    setTodos(todos.filter((t) => t.id !== todo.id));
-                    const snap = await getDocs(collection(db, "users", user.uid, "todos"));
-                    snap.forEach(async (d) => { if (d.data().id === todo.id) await deleteDoc(d.ref); });
-                  }}>x</IonButton>
+
+                  <IonLabel className={todo.done ? "todo-done" : ""}>
+                    {todo.text}
+                  </IonLabel>
+
+                  <IonButton
+                    slot="end"
+                    fill="clear"
+                    onClick={async () => {
+
+                      const user = auth.currentUser;
+                      if (!user) return;
+
+                      setTodos(
+                        todos.filter((t) => t.id !== todo.id)
+                      );
+
+                      const snap = await getDocs(
+                        collection(db, "users", user.uid, "todos")
+                      );
+
+                      snap.forEach(async (d) => {
+                        if (d.data().id === todo.id) {
+                          await deleteDoc(d.ref);
+                        }
+                      });
+
+                    }}
+                  >
+                    x
+                  </IonButton>
+
                 </IonItem>
+
               ))}
+
             </IonList>
+
           </IonCardContent>
+
         </IonCard>
 
         <IonAlert
@@ -248,13 +418,26 @@ const Home: React.FC = () => {
           isOpen={showAlert}
           onDidDismiss={() => setShowAlert(false)}
           header="เพิ่มรายการ"
-          inputs={[{ name: "todo", type: "text", placeholder: "เพิ่มรายการที่ต้องทำ..." }]}
+          inputs={[
+            {
+              name: "todo",
+              type: "text",
+              placeholder: "เพิ่มรายการที่ต้องทำ..."
+            }
+          ]}
           buttons={[
             { text: "ยกเลิก", role: "cancel" },
-            { text: "เพิ่ม", handler: (data) => { addTodo(data.todo); } }
+            {
+              text: "เพิ่ม",
+              handler: (data) => {
+                addTodo(data.todo);
+              }
+            }
           ]}
         />
+
       </IonContent>
+
     </IonPage>
   );
 };
