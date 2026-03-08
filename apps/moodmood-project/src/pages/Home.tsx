@@ -26,6 +26,8 @@ import { Geolocation } from "@capacitor/geolocation";
 // ✅ เพิ่ม import รูป
 import veryHappy from "../assets/veryhappy.svg";
 
+import { Capacitor } from "@capacitor/core";
+
 type Todo = { id: number; text: string; done: boolean; date?: any; };
 type Weather = { temp: number; description: string; city: string; icon: string; };
 
@@ -79,16 +81,43 @@ const Home: React.FC = () => {
     fetchUser();
   });
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const perm = await Geolocation.requestPermissions();
-        if (perm.location !== "granted") return;
+useEffect(() => {
+  const fetchWeather = async () => {
+    try {
 
-        const pos = await Geolocation.getCurrentPosition({ timeout: 10000 });
+      let lat = 0;
+      let lon = 0;
 
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
+      if (Capacitor.getPlatform() === "web") {
+
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+
+          lat = pos.coords.latitude;
+          lon = pos.coords.longitude;
+
+          const apiKey = "387e5e7079ea8747e015e50f35b986e0";
+
+          const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+          );
+
+          const data = await res.json();
+
+          setWeather({
+            temp: Math.round(data.main.temp),
+            description: data.weather[0].description,
+            city: data.name,
+            icon: data.weather[0].icon
+          });
+
+        });
+
+      } else {
+
+        const pos = await Geolocation.getCurrentPosition();
+
+        lat = pos.coords.latitude;
+        lon = pos.coords.longitude;
 
         const apiKey = "387e5e7079ea8747e015e50f35b986e0";
 
@@ -105,14 +134,15 @@ const Home: React.FC = () => {
           icon: data.weather[0].icon
         });
 
-      } catch (e) {
-        console.warn("Weather fetch failed:", e);
       }
-    };
 
-    fetchWeather();
-  }, []);
+    } catch (e) {
+      console.warn("Weather fetch failed:", e);
+    }
+  };
 
+  fetchWeather();
+}, []);
   const today = new Date();
 
   const thaiDate = today.toLocaleDateString("th-TH", {
