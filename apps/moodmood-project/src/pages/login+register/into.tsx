@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import './into.css';
 
 // ✅ import รูป
-import okayDuck from '../assets/okay.svg';
+import okayDuck from '../assets/Okay.svg';
 
 const Intro: React.FC = () => {
   const history = useHistory();
