@@ -1,0 +1,101 @@
+/* intro.css */
+
+.intro-content {
+  --background: #FAF8F1;
+}
+
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 40px 32px;
+  min-height: 100vh;
+  background-color: #FAF8F1;
+}
+
+/* Logo / Duck Section */
+.intro-logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  gap: 12px;
+}
+
+.intro-duck-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: #F5E6B8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  /* Remove below when using real image */
+  font-size: 72px;
+}
+
+/* If using an actual <img> tag instead of placeholder */
+.intro-duck-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.intro-title {
+  font-family: 'Georgia', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #3D3D3D;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.intro-subtitle {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 14px;
+  color: #8A8A8A;
+  margin: 0;
+  text-align: center;
+}
+
+/* Buttons */
+.intro-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 32px;
+}
+
+.btn-register {
+  --background: #E8C96A;
+  --background-activated: #D4B355;
+  --background-hover: #D4B355;
+  --color: #3D3D3D;
+  --border-radius: 30px;
+  --box-shadow: none;
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  height: 52px;
+  margin: 0;
+}
+
+.btn-login {
+  --background: transparent;
+  --background-activated: rgba(232, 201, 106, 0.1);
+  --color: #3D3D3D;
+  --border-radius: 30px;
+  --border-color: #3D3D3D;
+  --border-width: 1.5px;
+  --box-shadow: none;
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  height: 52px;
+  margin: 0;
+}
