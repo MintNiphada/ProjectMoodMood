@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MoodType } from '../types/Mood';
 import { MOOD_ICON, MOOD_LABEL } from '../constants/moods';
 import './moodselector.css';
+
 const MOODS: MoodType[] = [
   'okay',
   'happy',
@@ -12,33 +13,41 @@ const MOODS: MoodType[] = [
 ];
 
 interface MoodSelectorProps {
+  selected?: MoodType[];
   onSelect: (moods: MoodType[]) => void;
 }
 
-const MoodSelector: React.FC<MoodSelectorProps> = ({ onSelect }) => {
+const MoodSelector: React.FC<MoodSelectorProps> = ({
+  selected = [],
+  onSelect
+}) => {
 
-  const [selected, setSelected] = useState<MoodType[]>([]);
+  const [activeMoods, setActiveMoods] = useState<MoodType[]>(selected);
+
+  // sync ค่าเวลามี selected จากภายนอก (เช่นหน้า Edit)
+  useEffect(() => {
+    setActiveMoods(selected);
+  }, [selected]);
 
   const toggleMood = (mood: MoodType) => {
 
     let newSelected: MoodType[];
 
-    if (selected.includes(mood)) {
+    if (activeMoods.includes(mood)) {
 
-      newSelected = selected.filter(m => m !== mood);
+      newSelected = activeMoods.filter(m => m !== mood);
 
     } else {
 
-      if (selected.length >= 2) {
-        alert("เลือกได้สูงสุด 2 อารมณ์");
+      if (activeMoods.length >= 2) {
         return;
       }
 
-      newSelected = [...selected, mood];
+      newSelected = [...activeMoods, mood];
 
     }
 
-    setSelected(newSelected);
+    setActiveMoods(newSelected);
 
     onSelect(newSelected);
 
@@ -50,7 +59,7 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({ onSelect }) => {
 
       {MOODS.map(mood => {
 
-        const active = selected.includes(mood);
+        const active = activeMoods.includes(mood);
 
         return (
 
@@ -60,7 +69,7 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({ onSelect }) => {
             onClick={() => toggleMood(mood)}
           >
 
-            <img src={MOOD_ICON[mood]} />
+            <img src={MOOD_ICON[mood]} alt={mood} />
 
             <span>{MOOD_LABEL[mood]}</span>
 

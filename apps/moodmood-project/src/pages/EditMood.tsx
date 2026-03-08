@@ -1,6 +1,15 @@
-import { IonPage, IonContent, IonIcon } from '@ionic/react';
+import {
+  IonPage,
+  IonContent,
+  IonIcon,
+  useIonAlert,
+  useIonToast,
+  useIonLoading
+} from '@ionic/react';
+
 import { arrowBackOutline } from 'ionicons/icons';
 import { useHistory, useParams } from 'react-router-dom';
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 
@@ -28,6 +37,10 @@ const EditMood: React.FC = () => {
   const { id } = useParams<Params>();
   const history = useHistory();
 
+  const [presentAlert] = useIonAlert();
+  const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
+
   const [moods, setMoods] = useState<MoodType[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [note, setNote] = useState("");
@@ -36,9 +49,7 @@ const EditMood: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
-  const [loading, setLoading] = useState(false);
-
-  // โหลด mood เดิม
+  // โหลดข้อมูล mood เดิม
   useEffect(() => {
 
     const loadMood = async () => {
@@ -69,6 +80,7 @@ const EditMood: React.FC = () => {
 
   }, [id]);
 
+  // เลือกรูป
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     if (e.target.files?.[0]) {
@@ -85,20 +97,28 @@ const EditMood: React.FC = () => {
 
   };
 
+  // บันทึกการแก้ไข
   const saveEdit = async () => {
-
-    if (loading) return;
 
     const user = auth.currentUser;
 
     if (!user) {
-      alert("กรุณา login");
+
+      presentAlert({
+        header: "แจ้งเตือน",
+        message: "กรุณาเข้าสู่ระบบ",
+        buttons: ["ตกลง"]
+      });
+
       return;
+
     }
 
-    setLoading(true);
-
     try {
+
+      await presentLoading({
+        message: "กำลังบันทึก..."
+      });
 
       let imageUrl = preview || null;
 
@@ -127,7 +147,16 @@ const EditMood: React.FC = () => {
 
       });
 
-      alert("แก้ไขสำเร็จ");
+      await dismissLoading();
+
+      presentToast({
+        message: "บันทึกการแก้ไขเรียบร้อย",
+        duration: 2000,
+        position: "bottom",
+        color: "success",
+          cssClass: "app-toast"
+
+      });
 
       history.goBack();
 
@@ -135,11 +164,15 @@ const EditMood: React.FC = () => {
 
       console.error(error);
 
-      alert("เกิดข้อผิดพลาด");
+      await dismissLoading();
+
+      presentAlert({
+        header: "เกิดข้อผิดพลาด",
+        message: "ไม่สามารถบันทึกข้อมูลได้",
+        buttons: ["ปิด"]
+      });
 
     }
-
-    setLoading(false);
 
   };
 
@@ -169,15 +202,22 @@ const EditMood: React.FC = () => {
 
         <section>
           <label>วันนี้เป็นยังไงบ้าง?</label>
-          <MoodSelector onSelect={setMoods} />
+          <MoodSelector
+            selected={moods}
+            onSelect={setMoods}
+          />
         </section>
 
         <section>
           <label>Tags</label>
-          <TagSelector onChange={setTags} />
+          <TagSelector
+            selected={tags}
+            onChange={setTags}
+          />
         </section>
 
         <section>
+
           <label>คำอธิบาย</label>
 
           <textarea
@@ -200,6 +240,7 @@ const EditMood: React.FC = () => {
                 <img
                   src={preview}
                   className="polaroid-preview"
+                  alt="preview"
                 />
 
               ) : (
@@ -226,11 +267,8 @@ const EditMood: React.FC = () => {
         <button
           className="submit-btn"
           onClick={saveEdit}
-          disabled={loading}
         >
-
-          {loading ? "กำลังบันทึก..." : "บันทึกการแก้ไข"}
-
+          บันทึกการแก้ไข
         </button>
 
       </IonContent>

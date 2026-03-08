@@ -3,7 +3,8 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonContent
+  IonContent,
+  useIonAlert
 } from "@ionic/react";
 
 import { useState, useEffect } from "react";
@@ -29,6 +30,8 @@ import { db, auth } from "../firebase";
 const Calendar: React.FC = () => {
 
   const history = useHistory();
+
+  const [presentAlert] = useIonAlert();
 
   const [view, setView] =
     useState<'calendar' | 'timeline'>('calendar');
@@ -132,15 +135,31 @@ const Calendar: React.FC = () => {
 
     if (!user) return;
 
-    if (!window.confirm("ลบรายการนี้?")) return;
+    presentAlert({
+      header: "ยืนยันการลบ",
+      message: "ต้องการลบรายการนี้หรือไม่?",
+      buttons: [
+        {
+          text: "ยกเลิก",
+          role: "cancel"
+        },
+        {
+          text: "ลบ",
+          role: "destructive",
+          handler: async () => {
 
-    await deleteDoc(
-      doc(db, "users", user.uid, "moods", id)
-    );
+            await deleteDoc(
+              doc(db, "users", user.uid, "moods", id)
+            );
 
-    setFeedData(prev =>
-      prev.filter(entry => entry.id !== id)
-    );
+            setFeedData(prev =>
+              prev.filter(entry => entry.id !== id)
+            );
+
+          }
+        }
+      ]
+    });
 
   };
 
