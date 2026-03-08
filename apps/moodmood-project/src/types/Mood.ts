@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type MoodType =
     | 'okay'
     | 'happy'
@@ -22,4 +24,5 @@ export interface FeedEntry {
   tags: string[];
   note?: string;
   image?: string;
+  createdAt: Timestamp; 
 }

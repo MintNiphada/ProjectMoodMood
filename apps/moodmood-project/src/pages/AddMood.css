@@ -24,7 +24,6 @@ label{
     width: fit-content;
     padding-left: 10px;
     padding-right: 10px;
-    border-radius: 20px;
 }
 
 
@@ -116,7 +115,6 @@ textarea {
 .image-picker {
   width: 120px;
   height: 120px;
-  border-radius: 12px;
   background: #eee;
   display: flex;
   align-items: center;
@@ -136,3 +134,40 @@ textarea {
   color: #504D4D;
   border: 1px solid #504D4D;
 }
+
+/* Polaroid Picker */
+
+.polaroid-picker{
+  margin-top:10px;
+}
+
+.polaroid-frame{
+  width:160px;
+  height:190px;
+  background:#fff;
+  border:1px solid #ddd;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 4px 8px rgba(0,0,0,0.08);
+}
+
+.polaroid-preview{
+  width:100%;
+  height:130px;
+  object-fit:cover;
+}
+
+.polaroid-placeholder{
+  width:100%;
+  height:130px;
+  background:#eee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  color:#aaa;
+}
+

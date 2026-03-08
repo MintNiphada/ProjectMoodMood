@@ -6,13 +6,15 @@ import { IonReactRouter } from '@ionic/react-router';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
 
-import Tabs from './pages/Tabs';
-import AddMood from './pages/AddMood';
-import AddActivity from './pages/AddActivity';
-import Reflection from './pages/Reflection';
-import ReflectionHistory from './pages/ReflectionHistory';
-import ReflectionQuestions from './pages/ReflectionQuestions';
-import ReflectionAnswer from './pages/ReflectionAnswer';
+import Tabs from "./pages/Tabs";
+import AddMood from "./pages/AddMood";
+import Reflection from "./pages/Reflection";
+import ReflectionHistory from "./pages/ReflectionHistory";
+import ReflectionQuestions from "./pages/ReflectionQuestions";
+import ReflectionAnswer from "./pages/ReflectionAnswer";
+import AddActivity from "./pages/AddActivity";
+import EditMood from "./pages/EditMood";
+
 
 import Intro    from './pages/login+register/into';
 import Login    from './pages/login+register/Login';
@@ -52,6 +54,16 @@ const AppRoutes: React.FC = () => {
       {/* Pin Lock */}
       <Route path="/pin-lock" component={PinLock} exact />
 
+      <Route path="/edit-mood/:id" component={EditMood} />
+
+      {/* Reflection pages */}
+      <Route exact path="/tabs/reflection" component={Reflection} />
+      <Route exact path="/tabs/reflection/history" component={ReflectionHistory} />
+      <Route exact path="/tabs/reflection/:category" component={ReflectionQuestions} />
+      {/* การตอบกับประวัติการตอบ */}
+      <Route exact path="/tabs/reflection" component={Reflection} />
+      <Route exact path="/tabs/reflection/history" component={ReflectionHistory} />
+      <Route exact path="/tabs/reflection/:category" component={ReflectionQuestions} />
       {/* Settings */}
       <Route path="/settings"          component={Settings}        exact />
       <Route path="/settings/account"  component={SettingsAccount} exact />

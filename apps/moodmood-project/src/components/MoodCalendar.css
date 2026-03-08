@@ -1,80 +1,79 @@
-
 .mood-calendar {
-  padding: 12px;
-  background: #fefaf3;
+  padding: 10px;
+}
+
+/* header */
+
+.calendar-header-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
 }
 
 .calendar-header {
   text-align: center;
-  font-size: 13px;
-  font-weight: 500;
-  color: #5c5c5c;
-  padding-bottom: 6px;
+  font-size: 12px;
+  color: #666;
 }
 
-.calendar-body {
+/* grid */
+
+.calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-auto-rows: 68px;
-  border-top: 1px solid #B1B0AB;
-  border-left: 1px solid #B1B0AB;
+  gap: 6px;
 }
 
+/* cell */
+
 .calendar-cell {
-  border-right: 1px solid #B1B0AB;
-  border-bottom: 1px solid #B1B0AB;
+  background: #f2efe7;
+  border-radius: 10px;
+  min-height: 60px;
+  padding: 6px;
+  position: relative;
+  cursor: pointer;
+}
+
+.calendar-cell:hover {
+  background: #e9e5dc;
 }
 
 .calendar-cell.empty {
-  background: #fefaf3;
+  background: transparent;
 }
 
-.calendar-cell-inner {
-  height: 100%;
-  padding: 6px 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+/* today highlight */
+
+.calendar-cell.today {
+  border: 2px solid #B1B0AB;
 }
+
+/* day number */
 
 .day-number {
   font-size: 12px;
-  color: #8d8d8d;
-  align-self: flex-start;
+  font-weight: 600;
 }
 
-
-/* ===== Mood Icons ===== */
+/* mood icons */
 
 .mood-icons {
   display: flex;
-  gap: 3px;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 4px; 
+  gap: 2px;
+  margin-top: 4px;
 }
 
 .mood-icon {
-  width: 26px; 
-  height: 26px;
+  width: 18px;
 }
+
+/* add icon */
 
 .add-icon {
-  font-size: 16px;
-  color: #c9c9c9;
-}
-
-.calendar-cell.selected {
-  position: relative;
-}
-
-.calendar-cell.selected::after {
-  content: '';
   position: absolute;
-  inset: 4px;
-  border-radius: 12px;
-  border: 2px solid #f5d77a;
-  pointer-events: none;
+  bottom: 6px;
+  right: 6px;
+  font-size: 16px;
+  color: #bbb;
 }
-
