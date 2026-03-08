@@ -1,12 +1,12 @@
 import { IonPage, IonContent, IonIcon } from '@ionic/react';
 import { arrowBackOutline } from 'ionicons/icons';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { db, storage, auth } from "../firebase";
@@ -19,23 +19,55 @@ import './AddMood.css';
 
 dayjs.locale('th');
 
-const AddMood: React.FC = () => {
+interface Params {
+  id: string;
+}
 
+const EditMood: React.FC = () => {
+
+  const { id } = useParams<Params>();
   const history = useHistory();
-  const location = useLocation();
-
-  const params = new URLSearchParams(location.search);
-  const selectedDate =
-    params.get("date") || dayjs().format("YYYY-MM-DD");
 
   const [moods, setMoods] = useState<MoodType[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [note, setNote] = useState("");
+  const [date, setDate] = useState("");
 
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
   const [loading, setLoading] = useState(false);
+
+  // โหลด mood เดิม
+  useEffect(() => {
+
+    const loadMood = async () => {
+
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const refDoc = doc(db, "users", user.uid, "moods", id);
+
+      const snap = await getDoc(refDoc);
+
+      if (!snap.exists()) return;
+
+      const data = snap.data();
+
+      setMoods(data.moods || []);
+      setTags(data.tags || []);
+      setNote(data.note || "");
+      setDate(data.date || "");
+
+      if (data.image) {
+        setPreview(data.image);
+      }
+
+    };
+
+    loadMood();
+
+  }, [id]);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -53,14 +85,9 @@ const AddMood: React.FC = () => {
 
   };
 
-  const saveMood = async () => {
+  const saveEdit = async () => {
 
     if (loading) return;
-
-    if (moods.length === 0) {
-      alert("กรุณาเลือกอารมณ์");
-      return;
-    }
 
     const user = auth.currentUser;
 
@@ -73,7 +100,7 @@ const AddMood: React.FC = () => {
 
     try {
 
-      let imageUrl: string | null = null;
+      let imageUrl = preview || null;
 
       if (image) {
 
@@ -88,24 +115,25 @@ const AddMood: React.FC = () => {
 
       }
 
-      await addDoc(
-        collection(db, "users", user.uid, "moods"),
-        {
-          moods,
-          tags,
-          note,
-          image: imageUrl,
-          date: selectedDate,
-          createdAt: serverTimestamp()
-        }
-      );
+      const refDoc = doc(db, "users", user.uid, "moods", id);
 
+      await updateDoc(refDoc, {
+
+        moods,
+        tags,
+        note,
+        image: imageUrl,
+        updatedAt: new Date()
+
+      });
+
+      alert("แก้ไขสำเร็จ");
 
       history.goBack();
 
     } catch (error) {
 
-      console.error("Error saving mood:", error);
+      console.error(error);
 
       alert("เกิดข้อผิดพลาด");
 
@@ -127,45 +155,32 @@ const AddMood: React.FC = () => {
             onClick={() => history.goBack()}
             className="back-btn"
           >
-
             <IonIcon icon={arrowBackOutline} />
-
             กลับ
-
           </button>
 
-          <h1>บันทึกอารมณ์</h1>
+          <h1>แก้ไขอารมณ์</h1>
 
           <div className="date">
-
-            {dayjs(selectedDate).format('dddd, D MMMM YYYY')}
-
+            {date && dayjs(date).format('dddd, D MMMM YYYY')}
           </div>
 
         </div>
 
         <section>
-
           <label>วันนี้เป็นยังไงบ้าง?</label>
-
           <MoodSelector onSelect={setMoods} />
-
         </section>
 
         <section>
-
           <label>Tags</label>
-
           <TagSelector onChange={setTags} />
-
         </section>
 
         <section>
-
           <label>คำอธิบาย</label>
 
           <textarea
-            placeholder="คำอธิบาย..."
             value={note}
             onChange={(e) => setNote(e.target.value)}
           />
@@ -190,9 +205,7 @@ const AddMood: React.FC = () => {
               ) : (
 
                 <div className="polaroid-placeholder">
-
                   +
-
                 </div>
 
               )}
@@ -212,11 +225,11 @@ const AddMood: React.FC = () => {
 
         <button
           className="submit-btn"
-          onClick={saveMood}
+          onClick={saveEdit}
           disabled={loading}
         >
 
-          {loading ? "กำลังบันทึก..." : "+ บันทึกอารมณ์"}
+          {loading ? "กำลังบันทึก..." : "บันทึกการแก้ไข"}
 
         </button>
 
@@ -228,4 +241,4 @@ const AddMood: React.FC = () => {
 
 };
 
-export default AddMood;
+export default EditMood;

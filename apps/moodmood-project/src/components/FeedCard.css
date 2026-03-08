@@ -33,9 +33,9 @@
 
 .feed-mood {
   display: flex;
-  align-items: center;   /* ✅ เสมอกัน */
-  gap: 6px;
-  margin: 8px 0;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
 }
 
 .feed-mood-icon {
@@ -82,3 +82,10 @@
   border-radius: 12px;
   display: block;
 }
+
+.feed-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+

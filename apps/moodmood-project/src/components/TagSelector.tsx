@@ -2,15 +2,25 @@ import { useState } from 'react';
 
 const TAGS = ['ความรัก', 'สุขภาพ', 'การงาน', 'เงิน', 'เรียน', 'ครอบครัว', 'เพื่อน'];
 
-const TagSelector: React.FC = () => {
+interface TagSelectorProps {
+  onChange: (tags: string[]) => void;
+}
+
+const TagSelector: React.FC<TagSelectorProps> = ({ onChange }) => {
+
   const [selected, setSelected] = useState<string[]>([]);
 
   const toggle = (tag: string) => {
-    setSelected(prev =>
-      prev.includes(tag)
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
-    );
+
+    const newSelected =
+      selected.includes(tag)
+        ? selected.filter(t => t !== tag)
+        : [...selected, tag];
+
+    setSelected(newSelected);
+
+    // ส่งค่ากลับไป AddMood
+    onChange(newSelected);
   };
 
   return (

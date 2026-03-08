@@ -1,10 +1,4 @@
-import {
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonText,
-  IonIcon,
-} from '@ionic/react';
+import { IonText, IonIcon } from '@ionic/react';
 import { addOutline } from 'ionicons/icons';
 import dayjs from 'dayjs';
 
@@ -14,7 +8,7 @@ import { MOOD_ICON } from '../constants/moods';
 
 interface MoodCalendarProps {
   year: number;
-  month: number; // 0-11
+  month: number;
   data: Record<string, MoodType[]>;
   onSelectDate: (date: string) => void;
 }
@@ -27,31 +21,50 @@ const MoodCalendar: React.FC<MoodCalendarProps> = ({
   data,
   onSelectDate,
 }) => {
+
   const startOfMonth = dayjs().year(year).month(month).startOf('month');
   const daysInMonth = startOfMonth.daysInMonth();
   const startDay = startOfMonth.day();
 
+  const today = dayjs().format('YYYY-MM-DD');
+
   const cells: (number | null)[] = [];
 
-  for (let i = 0; i < startDay; i++) cells.push(null);
-  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+  // เติมช่องว่างก่อนวันแรก
+  for (let i = 0; i < startDay; i++) {
+    cells.push(null);
+  }
+
+  // ใส่วัน
+  for (let d = 1; d <= daysInMonth; d++) {
+    cells.push(d);
+  }
 
   return (
-    <IonGrid className="mood-calendar">
-      {/* ===== Header  ===== */}
-      <IonRow>
-        {WEEK_DAYS.map(day => (
-          <IonCol key={day} className="calendar-header">
-            <IonText>{day}</IonText>
-          </IonCol>
-        ))}
-      </IonRow>
 
-      {/* ===== Calendar Body ===== */}
-      <div className="calendar-body">
+    <div className="mood-calendar">
+
+      {/* header */}
+      <div className="calendar-header-row">
+
+        {WEEK_DAYS.map(day => (
+          <div key={day} className="calendar-header">
+            <IonText>{day}</IonText>
+          </div>
+        ))}
+
+      </div>
+
+      {/* body */}
+
+      <div className="calendar-grid">
+
         {cells.map((day, index) => {
+
           if (!day) {
-            return <div key={index} className="calendar-cell empty" />;
+            return (
+              <div key={index} className="calendar-cell empty" />
+            );
           }
 
           const date = dayjs()
@@ -62,36 +75,56 @@ const MoodCalendar: React.FC<MoodCalendarProps> = ({
 
           const moods = data[date];
 
+          const isToday = date === today;
+
           return (
+
             <div
               key={index}
-              className="calendar-cell"
+              className={`calendar-cell ${isToday ? 'today' : ''}`}
               onClick={() => onSelectDate(date)}
             >
-              <div className="calendar-cell-inner">
-                <div className="day-number">{day}</div>
 
-                {moods && moods.length > 0 ? (
-                  <div className="mood-icons">
-                    {moods.map(mood => (
-                      <img
-                        key={mood}
-                        src={MOOD_ICON[mood]}
-                        alt={mood}
-                        className="mood-icon"
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <IonIcon icon={addOutline} className="add-icon" />
-                )}
+              <div className="day-number">
+
+                {day}
+
               </div>
+
+              {moods && moods.length > 0 ? (
+
+                <div className="mood-icons">
+
+                  {moods.slice(0,2).map(mood => (
+
+                    <img
+                      key={mood}
+                      src={MOOD_ICON[mood]}
+                      className="mood-icon"
+                    />
+
+                  ))}
+
+                </div>
+
+              ) : (
+
+                <IonIcon icon={addOutline} className="add-icon" />
+
+              )}
+
             </div>
+
           );
+
         })}
+
       </div>
-    </IonGrid>
+
+    </div>
+
   );
+
 };
 
 export default MoodCalendar;

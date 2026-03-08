@@ -1,0 +1,27 @@
+
+/* สี mood */
+
+.mood-item.happy.active{
+  background:#f6e6a6;
+  border: none;
+}
+
+.mood-item.okay.active{
+  background:#bfe1d5;
+}
+
+.mood-item.bored.active{
+  background:#ddd;
+}
+
+.mood-item.sad.active{
+  background:#cfd6f2;
+}
+
+.mood-item.angry.active{
+  background:#f4b4b4;
+}
+
+.mood-item.tired.active{
+  background:#d6c7f4;
+}

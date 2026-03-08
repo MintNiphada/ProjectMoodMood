@@ -1,70 +1,143 @@
 import { IonIcon } from '@ionic/react';
-import { pencilOutline } from 'ionicons/icons';
+import { pencilOutline, trashOutline } from 'ionicons/icons';
+import { Timestamp } from "firebase/firestore";
+
 import { FeedEntry, MoodType } from '../types/Mood';
 import { MOOD_ICON, MOOD_LABEL, MOOD_COLOR } from '../constants/moods';
 
 import './FeedCard.css';
 
 interface Props {
-    entry: FeedEntry;
+  entry: FeedEntry;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
-const FeedCard: React.FC<Props> = ({ entry }) => {
-    const hasImage = Boolean(entry.image);
-    const mainMood: MoodType = entry.moods[0];
+const formatThaiDateTime = (timestamp?: Timestamp) => {
+  if (!timestamp) return "";
 
-    return (
-        <div className={`feed-card ${hasImage ? 'with-image' : 'no-image'}`}>
-            {/* header */}
-            <div className="feed-header">
-                <div className="feed-date">
-                    {entry.date} · {entry.time}
-                    {entry.tags[0] && <span className="feed-tag">{entry.tags[0]}</span>}
-                </div>
+  const d = timestamp.toDate();
 
-                <IonIcon icon={pencilOutline} className="edit-icon" />
-            </div>
+  const date = d.toLocaleDateString("th-TH", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
 
-            {/* mood */}
-            <div className="feed-mood">
-                <img
-                    src={MOOD_ICON[mainMood]}
-                    className="feed-mood-icon"
-                />
+  const time = d.toLocaleTimeString("th-TH", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 
-                <span
-                    className="feed-mood-label"
-                    style={{ backgroundColor: MOOD_COLOR[mainMood] }}
-                >
-                    {MOOD_LABEL[mainMood]}
-                </span>
+  return `${date} ${time} น.`;
+};
 
-                {entry.moods.length > 1 && (
-                    <div className="feed-mood-secondary">
-                        {entry.moods.slice(1).map((m: MoodType) => (
-                            <img
-                                key={m}
-                                src={MOOD_ICON[m]}
-                                className="feed-mood-icon small"
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
+const FeedCard: React.FC<Props> = ({ entry, onEdit, onDelete }) => {
 
+  const hasImage = Boolean(entry.image);
 
+  return (
 
-            {/* note */}
-            {entry.note && <div className="feed-note">{entry.note}</div>}
+    <div className={`feed-card ${hasImage ? 'with-image' : 'no-image'}`}>
 
-            {/* image */}
-            {hasImage && (
-                <div className="feed-image-wrapper">
-                    <img src={entry.image} className="feed-image" />
-                </div>
-            )}
+      {/* header */}
+      <div className="feed-header">
+
+        <div className="feed-date">
+          {formatThaiDateTime(entry.createdAt)}
+
+          {entry.tags?.[0] && (
+            <span className="feed-tag">
+              {entry.tags[0]}
+            </span>
+          )}
+
         </div>
-    );
+
+        <div className="feed-actions">
+
+          <IonIcon
+            icon={pencilOutline}
+            className="edit-icon"
+            onClick={() => onEdit?.(entry.id)}
+          />
+
+          <IonIcon
+            icon={trashOutline}
+            className="delete-icon"
+            onClick={() => onDelete?.(entry.id)}
+          />
+
+        </div>
+
+      </div>
+
+      {/* mood */}
+      <div className="feed-mood">
+
+        {/* icon row */}
+        <div className="feed-mood-icons">
+
+          {entry.moods.map((mood: MoodType) => (
+
+            <img
+              key={mood}
+              src={MOOD_ICON[mood]}
+              className="feed-mood-icon"
+              alt={mood}
+            />
+
+          ))}
+
+        </div>
+
+        {/* label row */}
+        <div className="feed-mood-labels">
+
+          {entry.moods.map((mood: MoodType) => (
+
+            <span
+              key={mood}
+              className="feed-mood-label"
+              style={{ backgroundColor: MOOD_COLOR[mood] }}
+            >
+              {MOOD_LABEL[mood]}
+            </span>
+
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* note */}
+      {entry.note && (
+
+        <div className="feed-note">
+          {entry.note}
+        </div>
+
+      )}
+
+      {/* image */}
+      {hasImage && (
+
+        <div className="feed-image-wrapper">
+
+          <img
+            src={entry.image}
+            className="feed-image"
+            alt="mood"
+          />
+
+        </div>
+
+      )}
+
+    </div>
+
+  );
+
 };
 
 export default FeedCard;
