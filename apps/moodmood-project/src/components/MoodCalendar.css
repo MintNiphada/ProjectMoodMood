@@ -77,3 +77,11 @@
   font-size: 16px;
   color: #bbb;
 }
+/* ✅ ล็อควันที่กดไม่ได้ */
+.calendar-cell.locked {
+  opacity: 0.4;
+  cursor: default;
+}
+.calendar-cell.locked:hover {
+  background: transparent;
+}
