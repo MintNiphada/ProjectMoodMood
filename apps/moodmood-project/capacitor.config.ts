@@ -1,9 +1,18 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'cpkku.ionic.moodmood',
   appName: 'moodmood-project',
-  webDir: 'dist'
+  webDir: 'dist',
+  server: {
+    androidScheme: 'https',
+    allowNavigation: [
+      '*.firebaseapp.com',
+      '*.googleapis.com',
+      '*.firebase.google.com',
+      '*.openweathermap.org'
+    ]
+  }
 };
 
 export default config;

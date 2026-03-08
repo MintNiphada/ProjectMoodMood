@@ -12,8 +12,6 @@ const SettingsAbout: React.FC = () => {
         <div className="about-container">
           <button className="about-back" onClick={() => history.goBack()}>{'< กลับ'}</button>
           <h1 className="about-title">เกี่ยวกับ</h1>
-
-          {/* TODO: เพิ่มข้อมูลที่ต้องการแสดงด้านล่างนี้ */}
           <div className="about-card">
             <div className="about-app-name"> MoodMood</div>
             <div>จัดทำโดยทีมงาน MoodMood สุดน่ารัก</div>
