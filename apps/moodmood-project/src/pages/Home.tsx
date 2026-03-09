@@ -95,7 +95,7 @@ useEffect(() => {
           lat = pos.coords.latitude;
           lon = pos.coords.longitude;
 
-          const apiKey = "387e5e7079ea8747e015e50f35b986e0";
+          const apiKey = import.meta.env.VITE_WEATHER_KEY;
 
           const res = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
@@ -119,7 +119,7 @@ useEffect(() => {
         lat = pos.coords.latitude;
         lon = pos.coords.longitude;
 
-        const apiKey = "387e5e7079ea8747e015e50f35b986e0";
+        const apiKey = import.meta.env.VITE_WEATHER_KEY;
 
         const res = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
